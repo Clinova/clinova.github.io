@@ -1,0 +1,10 @@
+.vscode
+
+.idea
+build
+docker
+node_modules
+
+# Ignore ds stores
+.DS_Store
+**/.DS_Store
