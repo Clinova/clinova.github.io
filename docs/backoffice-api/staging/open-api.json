@@ -1,18 +1,18 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "API documentation",
-    "description": "API documentation",
-    "version": "2.0.0"
+    "title": "API Heathwords",
+    "description": "API Heathwords",
+    "version": "2.0.1"
   },
   "servers": [
     {
-      "url": "http://localhost:9000",
-      "description": "TestServer"
+      "url": "https://staging.api.caidr.co",
+      "description": "Staging"
     },
     {
-      "url": "https://tbd.api.io",
-      "description": "Production server"
+      "url": "https://api.caidr.co",
+      "description": "Production"
     }
   ],
   "paths": {
@@ -1256,28 +1256,25 @@
         "additionalProperties": false
       },
       "userAuthRequestCodeResponse": {
-        "swagger": {
-          "type": "object",
-          "properties": {
-            "success": {
-              "type": "boolean"
-            },
-            "data": {
-              "type": "string",
-              "example": "ok"
-            },
-            "query_time": {
-              "type": "integer"
-            }
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
-          "required": [
-            "success",
-            "data",
-            "query_time"
-          ],
-          "additionalProperties": false
+          "data": {
+            "type": "string",
+            "example": "ok"
+          },
+          "query_time": {
+            "type": "integer"
+          }
         },
-        "components": {}
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
       },
       "userAuthenticatedResponse": {
         "type": "object",
