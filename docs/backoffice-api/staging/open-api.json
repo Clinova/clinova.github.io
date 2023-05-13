@@ -1,0 +1,2156 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API documentation",
+    "description": "API documentation",
+    "version": "1.5.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000",
+      "description": "TestServer"
+    },
+    {
+      "url": "https://tbd.api.io",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "summary": "Check server health",
+        "tags": [
+          "Health"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/healthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pingc": {
+      "get": {
+        "summary": "Check server health",
+        "tags": [
+          "Health"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/healthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pdf": {
+      "post": {
+        "summary": "Generate pdf file",
+        "tags": [
+          "Pdf"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pdfGenerationRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pdfGenerationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/request-code": {
+      "post": {
+        "summary": "Auth request code",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postLoginRequesBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userAuthRequestCodeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "summary": "Auth login",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postLoginBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userAuthenticatedResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/refresh-token": {
+      "post": {
+        "summary": "Auth refresh token",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postRefreshTokenBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userAuthenticatedResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "summary": "Get me info",
+        "tags": [
+          "Me"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/meResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/file/upload-url": {
+      "post": {
+        "summary": "File upload url request",
+        "tags": [
+          "File"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postFileUploadUrlBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileUploadUrlResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/libraries": {
+      "get": {
+        "summary": "List and filter all libraries",
+        "tags": [
+          "Library"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "draft",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "content_type",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_summary",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "country",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "gb",
+                "us"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listLibraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a library",
+        "tags": [
+          "Library"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postLibraryBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/libraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_libraries": {
+      "post": {
+        "summary": "List and filter all libraries",
+        "tags": [
+          "Library"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listLibrariesBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listLibraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/libraries/{id}": {
+      "get": {
+        "summary": "Library",
+        "tags": [
+          "Library"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/libraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a library",
+        "tags": [
+          "Library"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postLibraryBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/libraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/libraries/{id}/review": {
+      "put": {
+        "summary": "Review a library",
+        "tags": [
+          "Library"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reviewLibraryBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/libraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "summary": "List and filter all users",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "editor"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postUserBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_users": {
+      "post": {
+        "summary": "List and filter all users",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listUsersBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "summary": "User",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postUserBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/activity_logs": {
+      "get": {
+        "summary": "List and filter all activity logs",
+        "tags": [
+          "Activity Log"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "user_ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "asset_type",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listActivityLogResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_activity_logs": {
+      "post": {
+        "summary": "List and filter all activity logs",
+        "tags": [
+          "Activity Log"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listActivityLogsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listActivityLogResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "httpError": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "required": true
+          },
+          "error": {
+            "type": "string",
+            "example": "Error occurred",
+            "required": true
+          },
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "400",
+              "401",
+              "404",
+              "429",
+              "500"
+            ],
+            "required": true,
+            "description": "InvalidArgument,400 | Unauthorized,401 | NotFound,404 | TooManyRequests,429 | UnknownException,500"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "healthResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "example": "1.0.0"
+              },
+              "http": {
+                "type": "string",
+                "enum": [
+                  "OK",
+                  "ERROR"
+                ]
+              },
+              "postgres": {
+                "type": "string",
+                "enum": [
+                  "OK",
+                  "ERROR"
+                ]
+              }
+            },
+            "required": [
+              "version",
+              "http",
+              "postgres"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "pdfGenerationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "example": "https://url.com/file.pdf"
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "pdfGenerationRequestBody": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "postLoginRequesBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "postLoginBody": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 6
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "code",
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "postRefreshTokenBody": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "additionalProperties": false
+      },
+      "userAuthRequestCodeResponse": {
+        "swagger": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean"
+            },
+            "data": {
+              "type": "string",
+              "example": "ok"
+            },
+            "query_time": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "success",
+            "data",
+            "query_time"
+          ],
+          "additionalProperties": false
+        },
+        "components": {}
+      },
+      "userAuthenticatedResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "session": {
+                "type": "object",
+                "properties": {
+                  "access_token": {
+                    "type": "string"
+                  },
+                  "refresh_token": {
+                    "type": "string"
+                  },
+                  "expired_at": {
+                    "type": "number",
+                    "format": "float"
+                  }
+                },
+                "required": [
+                  "access_token",
+                  "refresh_token"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "role"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "meResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "role"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "postFileUploadUrlBody": {
+        "type": "object",
+        "properties": {
+          "file_name": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "file_name"
+        ],
+        "additionalProperties": false
+      },
+      "fileUploadUrlResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "file_id": {
+                "type": "string"
+              },
+              "file_name": {
+                "type": "string"
+              },
+              "signed_url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "file_id",
+              "file_name",
+              "signed_url"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "libraryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_content": {
+                "type": "string"
+              },
+              "next_steps_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "next_steps_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "professional_help_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "professional_help_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "fitnote_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "fitnote_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "more_information_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "more_information_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_link": {
+                "type": "string",
+                "nullable": true
+              },
+              "content_type": {
+                "type": "number",
+                "format": "float",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "created_at": {
+                "type": "number",
+                "format": "float"
+              },
+              "updated_at": {
+                "type": "number",
+                "format": "float"
+              },
+              "dictionary": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "get_well_soon": {
+                "type": "boolean"
+              },
+              "marketing_active": {
+                "type": "boolean"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "gb",
+                  "us"
+                ]
+              },
+              "reviewed_by": {
+                "type": "string",
+                "nullable": true
+              },
+              "reviewed_at": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "draft": {
+                "type": "boolean"
+              },
+              "reviewer_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "author_id": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "content_type",
+              "country"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listLibrariesBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "content_type": {
+            "type": "integer"
+          },
+          "search_summary": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "gb",
+              "us"
+            ]
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postLibraryBody": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string"
+          },
+          "summary_content": {
+            "type": "string"
+          },
+          "next_steps_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "professional_help_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "professional_help_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "fitnote_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "fitnote_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_title": {
+            "type": "string"
+          },
+          "video_link": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "number",
+            "format": "float",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "dictionary": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "get_well_soon": {
+            "type": "boolean",
+            "default": false
+          },
+          "marketing_active": {
+            "type": "boolean",
+            "default": false
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "gb",
+              "us"
+            ]
+          },
+          "reviewer_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "author_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "summary",
+          "summary_content",
+          "content_type",
+          "country"
+        ],
+        "additionalProperties": false
+      },
+      "reviewLibraryBody": {
+        "type": "object",
+        "properties": {
+          "draft": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "draft"
+        ],
+        "additionalProperties": false
+      },
+      "listLibraryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "summary_content": {
+                  "type": "string"
+                },
+                "draft": {
+                  "type": "boolean"
+                },
+                "country": {
+                  "type": "string",
+                  "enum": [
+                    "gb",
+                    "us"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "userResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "number",
+                "format": "float"
+              },
+              "created_by": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "role",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listUsersBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "email": {
+            "type": "string"
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "editor"
+            ]
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postUserBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "primary_role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "editor"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "primary_role"
+        ],
+        "additionalProperties": false
+      },
+      "listUserResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "created_by": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "role",
+                "updated_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listActivityLogsBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "user_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "action": {
+            "type": "string"
+          },
+          "asset_type": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "listActivityLogResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "user_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "asset_type": {
+                  "type": "string"
+                },
+                "asset_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "created_at": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "required": [
+                "id",
+                "user_id",
+                "action",
+                "asset_type",
+                "asset_id",
+                "payload",
+                "created_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "examples": {
+      "unauthorizedError": {
+        "value": {
+          "success": false,
+          "component": "Authorization",
+          "error_code": "401",
+          "error": "Unauthorized",
+          "details": []
+        }
+      },
+      "notFound": {
+        "value": {
+          "success": false,
+          "component": "Component",
+          "error_code": "404",
+          "error": "Entity not found",
+          "details": []
+        }
+      },
+      "validationError": {
+        "value": {
+          "success": false,
+          "component": "Validation",
+          "error_code": "400",
+          "error": "Missing property",
+          "details": [
+            {
+              "message": "message",
+              "path": "path",
+              "type": "blank"
+            }
+          ]
+        }
+      },
+      "errorExample": {
+        "value": {
+          "success": false,
+          "component": "errorExample",
+          "error_code": "500",
+          "error": "Error Example"
+        }
+      }
+    }
+  }
+}
