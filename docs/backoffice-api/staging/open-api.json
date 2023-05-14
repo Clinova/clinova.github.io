@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.0.1"
+    "version": "2.0.3"
   },
   "servers": [
     {
@@ -1746,37 +1746,86 @@
             "type": "boolean"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "summary": {
-                  "type": "string"
-                },
-                "summary_content": {
-                  "type": "string"
-                },
-                "draft": {
-                  "type": "boolean"
-                },
-                "country": {
-                  "type": "string",
-                  "enum": [
-                    "gb",
-                    "us"
-                  ]
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "summary_content": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "content_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_at": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "updated_at": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "reviewed_at": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "required": [
-                "id",
-                "country"
-              ],
-              "additionalProperties": false
-            }
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
@@ -1784,7 +1833,6 @@
         },
         "required": [
           "success",
-          "data",
           "query_time"
         ],
         "additionalProperties": false
@@ -1933,38 +1981,70 @@
             "type": "boolean"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "updated_at": {
-                  "type": "number",
-                  "format": "float"
-                },
-                "created_by": {
-                  "type": "string",
-                  "nullable": true
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "role",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "required": [
-                "id",
-                "role",
-                "updated_at"
-              ],
-              "additionalProperties": false
-            }
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
@@ -1972,7 +2052,6 @@
         },
         "required": [
           "success",
-          "data",
           "query_time"
         ],
         "additionalProperties": false
