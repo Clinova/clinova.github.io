@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.0.4"
+    "version": "2.1.1"
   },
   "servers": [
     {
@@ -898,7 +898,7 @@
         }
       },
       "post": {
-        "summary": "Create a user",
+        "summary": "Create an user",
         "tags": [
           "User"
         ],
@@ -1018,7 +1018,7 @@
         }
       },
       "put": {
-        "summary": "Update a user",
+        "summary": "Update an user",
         "tags": [
           "User"
         ],
@@ -1038,6 +1038,291 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editors": {
+      "get": {
+        "summary": "List and filter all editors",
+        "tags": [
+          "Editor"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an editor",
+        "tags": [
+          "Editor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postEditorBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_editors": {
+      "post": {
+        "summary": "List and filter all editors",
+        "tags": [
+          "Editor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listEditorsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editors/{id}": {
+      "get": {
+        "summary": "Get editor by id",
+        "tags": [
+          "Editor"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an editor",
+        "tags": [
+          "Editor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postEditorBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
                 }
               }
             }
@@ -1515,7 +1800,8 @@
                 "type": "string"
               },
               "photo": {
-                "type": "string"
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -1613,8 +1899,7 @@
                 "type": "string"
               },
               "created_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               }
             },
             "required": [
@@ -1687,8 +1972,7 @@
                       "type": "string"
                     },
                     "created_at": {
-                      "type": "number",
-                      "format": "float"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1793,12 +2077,10 @@
                 ]
               },
               "created_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "updated_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "dictionary": {
                 "type": "string",
@@ -1830,8 +2112,7 @@
                 "nullable": true
               },
               "reviewed_at": {
-                "type": "number",
-                "format": "float",
+                "type": "string",
                 "nullable": true
               },
               "draft": {
@@ -2104,16 +2385,13 @@
                       "format": "float"
                     },
                     "created_at": {
-                      "type": "number",
-                      "format": "float"
+                      "type": "string"
                     },
                     "updated_at": {
-                      "type": "number",
-                      "format": "float"
+                      "type": "string"
                     },
                     "reviewed_at": {
-                      "type": "number",
-                      "format": "float",
+                      "type": "string",
                       "nullable": true
                     }
                   },
@@ -2163,14 +2441,14 @@
                 "type": "string"
               },
               "photo": {
-                "type": "string"
+                "type": "string",
+                "nullable": true
               },
               "email": {
                 "type": "string"
               },
               "updated_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "created_by": {
                 "type": "string",
@@ -2330,14 +2608,14 @@
                       "type": "string"
                     },
                     "photo": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     },
                     "email": {
                       "type": "string"
                     },
                     "updated_at": {
-                      "type": "number",
-                      "format": "float"
+                      "type": "string"
                     },
                     "created_by": {
                       "type": "string",
@@ -2347,6 +2625,229 @@
                   "required": [
                     "id",
                     "role",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "editorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listEditorsBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postEditorBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "interest": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "listEditorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "interest": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
                     "updated_at"
                   ],
                   "additionalProperties": false
@@ -2473,8 +2974,7 @@
                   "additionalProperties": false
                 },
                 "created_at": {
-                  "type": "number",
-                  "format": "float"
+                  "type": "string"
                 }
               },
               "required": [
