@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.4.0"
+    "version": "2.6.1"
   },
   "servers": [
     {
@@ -247,7 +247,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -282,7 +282,8 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "created",
+                "name"
               ],
               "default": "created"
             },
@@ -412,7 +413,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -447,9 +448,12 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "updated",
+                "created",
+                "summary",
+                "country"
               ],
-              "default": "created"
+              "default": "updated"
             },
             "required": false
           },
@@ -813,7 +817,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -848,9 +852,11 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "updated",
+                "created",
+                "name"
               ],
-              "default": "created"
+              "default": "updated"
             },
             "required": false
           },
@@ -1118,7 +1124,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -1153,9 +1159,12 @@
             "schema": {
               "type": "string",
               "enum": [
+                "updated",
+                "name",
+                "title",
                 "created"
               ],
-              "default": "created"
+              "default": "updated"
             },
             "required": false
           },
@@ -1403,7 +1412,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -1587,7 +1596,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -1622,9 +1631,11 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "updated",
+                "created",
+                "name"
               ],
-              "default": "created"
+              "default": "updated"
             },
             "required": false
           },
@@ -1906,7 +1917,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -1941,9 +1952,11 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "updated",
+                "created",
+                "value"
               ],
-              "default": "created"
+              "default": "updated"
             },
             "required": false
           },
@@ -2207,7 +2220,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -2242,7 +2255,10 @@
             "schema": {
               "type": "string",
               "enum": [
-                "created"
+                "created",
+                "updated",
+                "name",
+                "country"
               ],
               "default": "created"
             },
@@ -3109,28 +3125,86 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "uuid"
                     },
                     "name": {
                       "type": "string"
                     },
-                    "images": {
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "image": {
+                          "id": {
                             "type": "string"
                           },
-                          "display_order": {
-                            "type": "number",
-                            "format": "float"
+                          "name": {
+                            "type": "string"
                           }
                         },
                         "additionalProperties": false
                       }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
                     }
                   },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3159,7 +3233,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -3179,9 +3253,12 @@
           "sort": {
             "type": "string",
             "enum": [
-              "created"
+              "updated",
+              "created",
+              "summary",
+              "country"
             ],
-            "default": "created"
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -3322,6 +3399,13 @@
           "author_id": {
             "type": "string",
             "nullable": true
+          },
+          "linked_product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         },
         "required": [
@@ -3422,6 +3506,12 @@
                     "reviewed_at": {
                       "type": "string",
                       "nullable": true
+                    },
+                    "linked_product_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   },
                   "required": [
@@ -3508,7 +3598,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -3528,9 +3618,11 @@
           "sort": {
             "type": "string",
             "enum": [
-              "created"
+              "updated",
+              "created",
+              "name"
             ],
-            "default": "created"
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -3738,7 +3830,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -3758,9 +3850,12 @@
           "sort": {
             "type": "string",
             "enum": [
+              "updated",
+              "name",
+              "title",
               "created"
             ],
-            "default": "created"
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -3909,7 +4004,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -4042,8 +4137,7 @@
                 "type": "string"
               },
               "slug": {
-                "type": "string",
-                "nullable": true
+                "type": "string"
               },
               "name": {
                 "type": "string"
@@ -4063,6 +4157,7 @@
             },
             "required": [
               "id",
+              "slug",
               "name",
               "updated_at"
             ],
@@ -4085,7 +4180,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -4105,9 +4200,11 @@
           "sort": {
             "type": "string",
             "enum": [
-              "created"
+              "updated",
+              "created",
+              "name"
             ],
-            "default": "created"
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -4141,17 +4238,21 @@
             "type": "string"
           },
           "slug": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "display_order": {
             "type": "number",
             "format": "float",
             "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
-          "name"
+          "name",
+          "slug"
         ],
         "additionalProperties": false
       },
@@ -4192,8 +4293,7 @@
                       "type": "string"
                     },
                     "slug": {
-                      "type": "string",
-                      "nullable": true
+                      "type": "string"
                     },
                     "name": {
                       "type": "string"
@@ -4213,6 +4313,7 @@
                   },
                   "required": [
                     "id",
+                    "slug",
                     "name",
                     "updated_at"
                   ],
@@ -4301,7 +4402,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -4321,9 +4422,11 @@
           "sort": {
             "type": "string",
             "enum": [
-              "created"
+              "updated",
+              "created",
+              "value"
             ],
-            "default": "created"
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -4598,6 +4701,10 @@
                   "additionalProperties": false
                 }
               },
+              "main_image": {
+                "type": "string",
+                "nullable": true
+              },
               "created_at": {
                 "type": "string"
               },
@@ -4619,9 +4726,6 @@
               "age_to": {
                 "type": "string",
                 "nullable": true
-              },
-              "antihistamine": {
-                "type": "boolean"
               },
               "antihistamine_units": {
                 "type": "number",
@@ -4646,9 +4750,6 @@
                   "gb",
                   "us"
                 ]
-              },
-              "decongestant": {
-                "type": "boolean"
               },
               "decongestant_units": {
                 "type": "number",
@@ -4680,9 +4781,6 @@
                 "format": "float",
                 "nullable": true
               },
-              "gsl": {
-                "type": "boolean"
-              },
               "gsl_units": {
                 "type": "number",
                 "format": "float",
@@ -4691,7 +4789,7 @@
               "in_stock": {
                 "type": "boolean"
               },
-              "legal_category": {
+              "product_legal_category": {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -4721,9 +4819,6 @@
                 "format": "float",
                 "nullable": true
               },
-              "nsaid": {
-                "type": "boolean"
-              },
               "nsaid_units": {
                 "type": "number",
                 "format": "float",
@@ -4733,9 +4828,6 @@
                 "type": "number",
                 "format": "float",
                 "nullable": true
-              },
-              "paracetamol": {
-                "type": "boolean"
               },
               "paracetamol_units": {
                 "type": "number",
@@ -4759,16 +4851,9 @@
                 "type": "string",
                 "nullable": true
               },
-              "product_legal_category": {
-                "type": "string",
-                "nullable": true
-              },
               "product_license_number": {
                 "type": "string",
                 "nullable": true
-              },
-              "pseudoephedrine": {
-                "type": "boolean"
               },
               "pseudoephedrine_units": {
                 "type": "number",
@@ -4792,6 +4877,103 @@
               },
               "is_popular": {
                 "type": "boolean"
+              },
+              "list_of_ingredient": {
+                "type": "string",
+                "nullable": true
+              },
+              "list_of_sympton": {
+                "type": "string",
+                "nullable": true
+              },
+              "bundle_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -4817,7 +4999,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -4837,7 +5019,10 @@
           "sort": {
             "type": "string",
             "enum": [
-              "created"
+              "created",
+              "updated",
+              "name",
+              "country"
             ],
             "default": "created"
           },
@@ -4895,10 +5080,31 @@
           "name": {
             "type": "string"
           },
+          "main_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "category_ids": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           },
           "product_type": {
@@ -4912,9 +5118,6 @@
           "price_cents": {
             "type": "number",
             "format": "float"
-          },
-          "price_currency": {
-            "type": "string"
           },
           "quantity": {
             "type": "number",
@@ -4941,10 +5144,6 @@
             "type": "string",
             "nullable": true
           },
-          "antihistamine": {
-            "type": "boolean",
-            "nullable": true
-          },
           "antihistamine_units": {
             "type": "number",
             "format": "float",
@@ -4959,20 +5158,12 @@
             "format": "float",
             "nullable": true
           },
-          "cost_price_currency": {
-            "type": "string",
-            "nullable": true
-          },
           "country": {
             "type": "string",
             "enum": [
               "gb",
               "us"
             ]
-          },
-          "decongestant": {
-            "type": "string",
-            "nullable": true
           },
           "decongestant_units": {
             "type": "number",
@@ -4996,10 +5187,6 @@
             "format": "float",
             "nullable": true
           },
-          "gsl": {
-            "type": "boolean",
-            "nullable": true
-          },
           "gsl_units": {
             "type": "number",
             "format": "float",
@@ -5009,7 +5196,7 @@
             "type": "boolean",
             "nullable": true
           },
-          "legal_category": {
+          "product_legal_category": {
             "type": "string",
             "nullable": true
           },
@@ -5045,10 +5232,6 @@
             "format": "float",
             "nullable": true
           },
-          "paracetamol": {
-            "type": "boolean",
-            "nullable": true
-          },
           "paracetamol_units": {
             "type": "number",
             "format": "float",
@@ -5071,16 +5254,8 @@
             "type": "string",
             "nullable": true
           },
-          "product_legal_category": {
-            "type": "string",
-            "nullable": true
-          },
           "product_license_number": {
             "type": "string",
-            "nullable": true
-          },
-          "pseudoephedrine": {
-            "type": "boolean",
             "nullable": true
           },
           "pseudoephedrine_units": {
@@ -5107,6 +5282,22 @@
           "is_popular": {
             "type": "boolean",
             "nullable": true
+          },
+          "list_of_ingredient": {
+            "type": "string",
+            "nullable": true
+          },
+          "list_of_sympton": {
+            "type": "string",
+            "nullable": true
+          },
+          "bundle_product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "default": []
           }
         },
         "required": [
@@ -5114,7 +5305,6 @@
           "name",
           "product_type",
           "price_cents",
-          "price_currency",
           "country"
         ],
         "additionalProperties": false
@@ -5177,6 +5367,13 @@
                         "additionalProperties": false
                       }
                     },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
                     "product_type": {
                       "type": "number",
                       "format": "float"
@@ -5211,21 +5408,9 @@
                         "additionalProperties": false
                       }
                     },
-                    "images": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "image": {
-                            "type": "string"
-                          },
-                          "display_order": {
-                            "type": "number",
-                            "format": "float"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
                     },
                     "created_at": {
                       "type": "string"
@@ -5235,7 +5420,8 @@
                     }
                   },
                   "required": [
-                    "id"
+                    "id",
+                    "country"
                   ],
                   "additionalProperties": false
                 }
