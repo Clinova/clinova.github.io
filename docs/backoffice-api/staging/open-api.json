@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.6.1"
+    "version": "2.7.1"
   },
   "servers": [
     {
@@ -283,7 +283,8 @@
               "type": "string",
               "enum": [
                 "created",
-                "name"
+                "name",
+                "content_type"
               ],
               "default": "created"
             },
@@ -451,7 +452,9 @@
                 "updated",
                 "created",
                 "summary",
-                "country"
+                "country",
+                "draft",
+                "content_type"
               ],
               "default": "updated"
             },
@@ -854,7 +857,8 @@
               "enum": [
                 "updated",
                 "created",
-                "name"
+                "name",
+                "role"
               ],
               "default": "updated"
             },
@@ -1633,7 +1637,8 @@
               "enum": [
                 "updated",
                 "created",
-                "name"
+                "name",
+                "display_order"
               ],
               "default": "updated"
             },
@@ -1954,7 +1959,8 @@
               "enum": [
                 "updated",
                 "created",
-                "value"
+                "value",
+                "id"
               ],
               "default": "updated"
             },
@@ -2258,7 +2264,10 @@
                 "created",
                 "updated",
                 "name",
-                "country"
+                "country",
+                "draft",
+                "price",
+                "quantity"
               ],
               "default": "created"
             },
@@ -3256,7 +3265,9 @@
               "updated",
               "created",
               "summary",
-              "country"
+              "country",
+              "draft",
+              "content_type"
             ],
             "default": "updated"
           },
@@ -3620,7 +3631,8 @@
             "enum": [
               "updated",
               "created",
-              "name"
+              "name",
+              "role"
             ],
             "default": "updated"
           },
@@ -4202,7 +4214,8 @@
             "enum": [
               "updated",
               "created",
-              "name"
+              "name",
+              "display_order"
             ],
             "default": "updated"
           },
@@ -4374,6 +4387,10 @@
                 ],
                 "additionalProperties": false
               },
+              "group_id": {
+                "type": "string",
+                "nullable": true
+              },
               "updated_at": {
                 "type": "string"
               }
@@ -4424,7 +4441,8 @@
             "enum": [
               "updated",
               "created",
-              "value"
+              "value",
+              "id"
             ],
             "default": "updated"
           },
@@ -4545,6 +4563,10 @@
                         "name"
                       ],
                       "additionalProperties": false
+                    },
+                    "group_id": {
+                      "type": "string",
+                      "nullable": true
                     },
                     "updated_at": {
                       "type": "string"
@@ -5022,7 +5044,10 @@
               "created",
               "updated",
               "name",
-              "country"
+              "country",
+              "draft",
+              "price",
+              "quantity"
             ],
             "default": "created"
           },
