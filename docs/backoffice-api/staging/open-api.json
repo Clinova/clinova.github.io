@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.7.1"
+    "version": "2.8.0"
   },
   "servers": [
     {
@@ -372,6 +372,17 @@
         "tags": [
           "File"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -648,6 +659,17 @@
         "tags": [
           "Library"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -679,6 +701,17 @@
         "summary": "Update a library",
         "tags": [
           "Library"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
         ],
         "requestBody": {
           "required": true,
@@ -1044,6 +1077,17 @@
         "tags": [
           "User"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1075,6 +1119,17 @@
         "summary": "Update an user",
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
         ],
         "requestBody": {
           "required": true,
@@ -1332,6 +1387,17 @@
         "tags": [
           "Editor"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1363,6 +1429,17 @@
         "summary": "Update an editor",
         "tags": [
           "Editor"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
         ],
         "requestBody": {
           "required": true,
@@ -1804,6 +1881,17 @@
         "tags": [
           "Category"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1835,6 +1923,17 @@
         "summary": "Update a category",
         "tags": [
           "Category"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
         ],
         "requestBody": {
           "required": true,
@@ -2142,6 +2241,17 @@
         "tags": [
           "Setting"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2173,6 +2283,17 @@
         "summary": "Update a setting",
         "tags": [
           "Setting"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
         ],
         "requestBody": {
           "required": true,
@@ -2461,6 +2582,17 @@
         "tags": [
           "Product"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2493,6 +2625,17 @@
         "tags": [
           "Product"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -2503,6 +2646,311 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/editors": {
+      "get": {
+        "summary": "List all editors",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/editors/{id}": {
+      "get": {
+        "summary": "Get editor by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries": {
+      "get": {
+        "summary": "List all libraries",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listLibraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries/alphabetized": {
+      "get": {
+        "summary": "List all libraries alphabetized",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listLibraryAlphabetizedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries/{id}": {
+      "get": {
+        "summary": "Get library by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/libraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/product_categories": {
+      "get": {
+        "summary": "List all product categories",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listProductCategoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/products": {
+      "get": {
+        "summary": "List all products",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/products/{id}": {
+      "get": {
+        "summary": "Get product by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3011,227 +3459,187 @@
       "libraryResponse": {
         "type": "object",
         "properties": {
-          "success": {
+          "author": {
+            "type": "string",
+            "nullable": true
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "fitnote_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "fitnote_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "get_well_soon": {
             "type": "boolean"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "summary": {
-                "type": "string"
-              },
-              "summary_content": {
-                "type": "string"
-              },
-              "next_steps_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "next_steps_content": {
-                "type": "string",
-                "nullable": true
-              },
-              "professional_help_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "professional_help_content": {
-                "type": "string",
-                "nullable": true
-              },
-              "fitnote_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "fitnote_content": {
-                "type": "string",
-                "nullable": true
-              },
-              "more_information_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "more_information_content": {
-                "type": "string",
-                "nullable": true
-              },
-              "video_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "video_link": {
-                "type": "string",
-                "nullable": true
-              },
-              "content_type": {
-                "type": "number",
-                "format": "float",
-                "enum": [
-                  0,
-                  1,
-                  2,
-                  3,
-                  4
-                ]
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "updated_at": {
-                "type": "string"
-              },
-              "dictionary": {
-                "type": "string",
-                "nullable": true
-              },
-              "meta_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "meta_description": {
-                "type": "string",
-                "nullable": true
-              },
-              "get_well_soon": {
-                "type": "boolean"
-              },
-              "marketing_active": {
-                "type": "boolean"
-              },
-              "country": {
-                "type": "string",
-                "enum": [
-                  "gb",
-                  "us"
-                ]
-              },
-              "reviewed_by": {
-                "type": "string",
-                "nullable": true
-              },
-              "reviewed_at": {
-                "type": "string",
-                "nullable": true
-              },
-              "draft": {
-                "type": "boolean"
-              },
-              "reviewer_id": {
-                "type": "string",
-                "nullable": true
-              },
-              "author_id": {
-                "type": "string",
-                "nullable": true
-              },
-              "linked_products": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "draft": {
-                      "type": "boolean"
-                    },
-                    "categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "country": {
-                      "type": "string",
-                      "enum": [
-                        "gb",
-                        "us"
-                      ]
-                    },
-                    "product_type": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_cents": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_currency": {
-                      "type": "string"
-                    },
-                    "quantity": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "fulfilment_product_id": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "linked_libraries": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "summary": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "main_image": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "created_at": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "country"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "id",
-              "content_type",
-              "country"
-            ],
-            "additionalProperties": false
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
-          "query_time": {
-            "type": "integer"
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "antihistamine_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "decongestant_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "fake_bundle": {
+                  "type": "boolean"
+                },
+                "general_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "gsl_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "in_stock": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "nsaid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "opioid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "paracetamol_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "price_cents": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "price_currency": {
+                  "type": "string"
+                },
+                "product_type": {
+                  "type": "string"
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "why_this_bundle": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "uuid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "professional_help_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "professional_help_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewer": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewed_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string"
+          },
+          "summary_content": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "video_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_link": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
-          "success",
-          "query_time"
+          "content_type",
+          "id",
+          "uuid"
         ],
         "additionalProperties": false
       },
@@ -3452,105 +3860,33 @@
         "additionalProperties": false
       },
       "listLibraryResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "page": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "total": {
-                "type": "number",
-                "format": "float"
-              },
-              "limit": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "pages": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "records": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "summary": {
-                      "type": "string"
-                    },
-                    "summary_content": {
-                      "type": "string"
-                    },
-                    "draft": {
-                      "type": "boolean"
-                    },
-                    "country": {
-                      "type": "string",
-                      "enum": [
-                        "gb",
-                        "us"
-                      ]
-                    },
-                    "content_type": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    },
-                    "reviewed_at": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "linked_product_ids": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "country"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "metaData": {
-                "example": null
-              }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
             },
-            "required": [
-              "total",
-              "records"
-            ],
-            "additionalProperties": false
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "summary_content": {
+              "type": "string"
+            }
           },
-          "query_time": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "success",
-          "query_time"
-        ],
-        "additionalProperties": false
+          "required": [
+            "id",
+            "uuid",
+            "summary_content"
+          ],
+          "additionalProperties": false
+        }
       },
       "userResponse": {
         "type": "object",
@@ -3786,52 +4122,41 @@
       "editorResponse": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string",
-                "nullable": true
-              },
-              "name": {
-                "type": "string"
-              },
-              "photo": {
-                "type": "string",
-                "nullable": true
-              },
-              "bio": {
-                "type": "string",
-                "nullable": true
-              },
-              "updated_at": {
-                "type": "string"
-              },
-              "interest": {
-                "type": "string",
-                "nullable": true
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "updated_at"
-            ],
-            "additionalProperties": false
+          "title": {
+            "type": "string",
+            "nullable": true
           },
-          "query_time": {
-            "type": "integer"
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "interest": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
-          "success",
-          "query_time"
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
         ],
         "additionalProperties": false
       },
@@ -3923,91 +4248,48 @@
         "additionalProperties": false
       },
       "listEditorResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "page": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "total": {
-                "type": "number",
-                "format": "float"
-              },
-              "limit": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "pages": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "records": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "bio": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    },
-                    "interest": {
-                      "type": "string",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "updated_at"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "metaData": {
-                "example": null
-              }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
             },
-            "required": [
-              "total",
-              "records"
-            ],
-            "additionalProperties": false
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "interest": {
+              "type": "string",
+              "nullable": true
+            }
           },
-          "query_time": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "success",
-          "query_time"
-        ],
-        "additionalProperties": false
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
       },
       "listActivityLogsBody": {
         "type": "object",
@@ -4642,375 +4924,119 @@
       "productResponse": {
         "type": "object",
         "properties": {
-          "success": {
+          "antihistamine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "category": {
+            "type": "string"
+          },
+          "decongestant_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "dosage_form": {
+            "type": "string"
+          },
+          "fake_bundle": {
             "type": "boolean"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "name": {
-                "type": "string"
-              },
-              "draft": {
-                "type": "boolean"
-              },
-              "categories": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              },
-              "product_type": {
-                "type": "number",
-                "format": "float"
-              },
-              "price_cents": {
-                "type": "number",
-                "format": "float"
-              },
-              "price_currency": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "number",
-                "format": "float"
-              },
-              "fulfilment_product_id": {
-                "type": "string",
-                "nullable": true
-              },
-              "linked_libraries": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "summary": {
-                      "type": "string"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              },
-              "images": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "image": {
-                      "type": "string"
-                    },
-                    "display_order": {
-                      "type": "number",
-                      "format": "float"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              },
-              "main_image": {
-                "type": "string",
-                "nullable": true
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "updated_at": {
-                "type": "string"
-              },
-              "summary": {
-                "type": "string",
-                "nullable": true
-              },
-              "short_description": {
-                "type": "string",
-                "nullable": true
-              },
-              "age_from": {
-                "type": "string",
-                "nullable": true
-              },
-              "age_to": {
-                "type": "string",
-                "nullable": true
-              },
-              "antihistamine_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "codeine": {
-                "type": "boolean"
-              },
-              "cost_price_cents": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "cost_price_currency": {
-                "type": "string",
-                "nullable": true
-              },
-              "country": {
-                "type": "string",
-                "enum": [
-                  "gb",
-                  "us"
-                ]
-              },
-              "decongestant_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "dosage_form": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "dosage_instructions": {
-                "type": "string",
-                "nullable": true
-              },
-              "fake_bundle": {
-                "type": "boolean"
-              },
-              "general_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "gsl_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "in_stock": {
-                "type": "boolean"
-              },
-              "product_legal_category": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "mailchimp_tag": {
-                "type": "string",
-                "nullable": true
-              },
-              "marketing_active": {
-                "type": "boolean"
-              },
-              "max_per_transaction": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "min_stock_kept": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "nsaid_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "opioid_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "paracetamol_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "pil_url": {
-                "type": "string",
-                "nullable": true
-              },
-              "pip_code": {
-                "type": "string",
-                "nullable": true
-              },
-              "product_count": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "product_identifier": {
-                "type": "string",
-                "nullable": true
-              },
-              "product_license_number": {
-                "type": "string",
-                "nullable": true
-              },
-              "pseudoephedrine_units": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "track_quantity": {
-                "type": "boolean"
-              },
-              "traditional_herbal_remedy": {
-                "type": "string",
-                "nullable": true
-              },
-              "meta_title": {
-                "type": "string",
-                "nullable": true
-              },
-              "meta_description": {
-                "type": "string",
-                "nullable": true
-              },
-              "is_popular": {
-                "type": "boolean"
-              },
-              "list_of_ingredient": {
-                "type": "string",
-                "nullable": true
-              },
-              "list_of_sympton": {
-                "type": "string",
-                "nullable": true
-              },
-              "bundle_products": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "draft": {
-                      "type": "boolean"
-                    },
-                    "categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "country": {
-                      "type": "string",
-                      "enum": [
-                        "gb",
-                        "us"
-                      ]
-                    },
-                    "product_type": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_cents": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_currency": {
-                      "type": "string"
-                    },
-                    "quantity": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "fulfilment_product_id": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "linked_libraries": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "summary": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "main_image": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "created_at": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "country"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "id",
-              "country"
-            ],
-            "additionalProperties": false
+          "general_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
           },
-          "query_time": {
-            "type": "integer"
+          "gsl_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "in_stock": {
+            "type": "boolean"
+          },
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "nsaid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "opioid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "paracetamol_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "price_cents": {
+            "type": "number",
+            "format": "float"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "product_type": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail": {
+            "type": "string",
+            "nullable": true
+          },
+          "pseudoephedrine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "required": [
-          "success",
-          "query_time"
+          "id",
+          "name",
+          "uuid"
         ],
         "additionalProperties": false
       },
@@ -5335,141 +5361,152 @@
         "additionalProperties": false
       },
       "listProductResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "page": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "total": {
-                "type": "number",
-                "format": "float"
-              },
-              "limit": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "pages": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "records": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "draft": {
-                      "type": "boolean"
-                    },
-                    "categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "country": {
-                      "type": "string",
-                      "enum": [
-                        "gb",
-                        "us"
-                      ]
-                    },
-                    "product_type": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_cents": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "price_currency": {
-                      "type": "string"
-                    },
-                    "quantity": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "fulfilment_product_id": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "linked_libraries": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "summary": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "main_image": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "created_at": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "country"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "metaData": {
-                "example": null
-              }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "antihistamine_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
             },
-            "required": [
-              "total",
-              "records"
-            ],
-            "additionalProperties": false
+            "category": {
+              "type": "string"
+            },
+            "decongestant_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "dosage_form": {
+              "type": "string"
+            },
+            "fake_bundle": {
+              "type": "boolean"
+            },
+            "general_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "gsl_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in_stock": {
+              "type": "boolean"
+            },
+            "is_popular": {
+              "type": "boolean"
+            },
+            "marketing_active": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "nsaid_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "opioid_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "paracetamol_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "price_cents": {
+              "type": "number",
+              "format": "float"
+            },
+            "price_currency": {
+              "type": "string"
+            },
+            "product_type": {
+              "type": "string"
+            },
+            "thumbnail": {
+              "type": "string",
+              "nullable": true
+            },
+            "pseudoephedrine_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
-          "query_time": {
-            "type": "integer"
+          "required": [
+            "id",
+            "name",
+            "uuid"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "listLibraryAlphabetizedResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "title": {
+              "type": "string"
+            },
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "content_type": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "uuid",
+            "title",
+            "items",
+            "content_type",
+            "url"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "listProductCategoryResponse": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
-        },
-        "required": [
-          "success",
-          "query_time"
-        ],
-        "additionalProperties": false
+        }
       }
     },
     "examples": {
