@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.8.0"
+    "version": "2.9.0"
   },
   "servers": [
     {
@@ -751,50 +751,6 @@
         }
       }
     },
-    "/v1/libraries/{id}/review": {
-      "put": {
-        "summary": "Review a library",
-        "tags": [
-          "Library"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/reviewLibraryBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/libraryResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authenticated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/httpError"
-                },
-                "examples": {
-                  "error": {
-                    "$ref": "#/components/examples/unauthorizedError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/libraries/{id}/link_products": {
       "put": {
         "summary": "Link a library to recommended products",
@@ -1392,8 +1348,8 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float"
             },
             "required": true
           }
@@ -1435,8 +1391,8 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float"
             },
             "required": true
           }
@@ -1886,10 +1842,18 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
             },
-            "required": true
+            "required": false
           }
         ],
         "responses": {
@@ -1929,10 +1893,18 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
             },
-            "required": true
+            "required": false
           }
         ],
         "requestBody": {
@@ -3460,7 +3432,45 @@
         "type": "object",
         "properties": {
           "author": {
-            "type": "string",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
             "nullable": true
           },
           "content_type": {
@@ -3481,8 +3491,9 @@
             "type": "boolean"
           },
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "number",
+            "format": "float",
+            "nullable": true
           },
           "marketing_active": {
             "type": "boolean"
@@ -3540,8 +3551,9 @@
                   "nullable": true
                 },
                 "id": {
-                  "type": "string",
-                  "format": "uuid"
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
                 },
                 "in_stock": {
                   "type": "boolean"
@@ -3588,7 +3600,6 @@
                 }
               },
               "required": [
-                "id",
                 "name",
                 "uuid"
               ],
@@ -3604,7 +3615,45 @@
             "nullable": true
           },
           "reviewer": {
-            "type": "string",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
             "nullable": true
           },
           "reviewed_at": {
@@ -3638,7 +3687,6 @@
         },
         "required": [
           "content_type",
-          "id",
           "uuid"
         ],
         "additionalProperties": false
@@ -3834,18 +3882,6 @@
         ],
         "additionalProperties": false
       },
-      "reviewLibraryBody": {
-        "type": "object",
-        "properties": {
-          "draft": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "draft"
-        ],
-        "additionalProperties": false
-      },
       "linkLibraryProductsBody": {
         "type": "object",
         "properties": {
@@ -3865,8 +3901,9 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float",
+              "nullable": true
             },
             "uuid": {
               "type": "string",
@@ -3881,7 +3918,6 @@
             }
           },
           "required": [
-            "id",
             "uuid",
             "summary_content"
           ],
@@ -4123,8 +4159,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "number",
+            "format": "float"
           },
           "title": {
             "type": "string",
@@ -4197,8 +4233,8 @@
           "ids": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float"
             }
           },
           "search_name": {
@@ -4253,8 +4289,8 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float"
             },
             "title": {
               "type": "string",
@@ -4954,8 +4990,9 @@
             "nullable": true
           },
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "number",
+            "format": "float",
+            "nullable": true
           },
           "images": {
             "type": "array",
@@ -5034,7 +5071,6 @@
           }
         },
         "required": [
-          "id",
           "name",
           "uuid"
         ],
@@ -5395,8 +5431,9 @@
               "nullable": true
             },
             "id": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float",
+              "nullable": true
             },
             "in_stock": {
               "type": "boolean"
@@ -5450,7 +5487,6 @@
             }
           },
           "required": [
-            "id",
             "name",
             "uuid"
           ],
@@ -5463,8 +5499,9 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "string",
-              "format": "uuid"
+              "type": "number",
+              "format": "float",
+              "nullable": true
             },
             "uuid": {
               "type": "string",
@@ -5489,7 +5526,6 @@
             }
           },
           "required": [
-            "id",
             "uuid",
             "title",
             "items",
