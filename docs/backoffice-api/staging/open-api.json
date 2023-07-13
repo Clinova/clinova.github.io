@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.9.0"
+    "version": "2.13.1"
   },
   "servers": [
     {
@@ -3852,11 +3852,13 @@
             ]
           },
           "reviewer_id": {
-            "type": "string",
+            "type": "number",
+            "format": "float",
             "nullable": true
           },
           "reviewed_by": {
-            "type": "string",
+            "type": "number",
+            "format": "float",
             "nullable": true
           },
           "reviewed_at": {
@@ -3864,7 +3866,8 @@
             "nullable": true
           },
           "author_id": {
-            "type": "string",
+            "type": "number",
+            "format": "float",
             "nullable": true
           },
           "linked_product_ids": {
