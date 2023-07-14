@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.13.1"
+    "version": "2.14.0"
   },
   "servers": [
     {
@@ -1177,7 +1177,8 @@
                 "updated",
                 "name",
                 "title",
-                "created"
+                "created",
+                "display_order"
               ],
               "default": "updated"
             },
@@ -2651,6 +2652,63 @@
         "summary": "List all editors",
         "tags": [
           "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
         ],
         "responses": {
           "200": {
@@ -4229,7 +4287,8 @@
               "updated",
               "name",
               "title",
-              "created"
+              "created",
+              "display_order"
             ],
             "default": "updated"
           },
@@ -4278,6 +4337,11 @@
           },
           "interest": {
             "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
             "nullable": true
           }
         },
