@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.15.3"
+    "version": "2.16.1"
   },
   "servers": [
     {
@@ -2683,7 +2683,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listEditorResponse"
+                  "$ref": "#/components/schemas/gatewayListEditorResponse"
                 }
               }
             }
@@ -2728,7 +2728,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/editorResponse"
+                  "$ref": "#/components/schemas/gatewayEditorResponse"
                 }
               }
             }
@@ -2788,7 +2788,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                  "$ref": "#/components/schemas/gatewayListTeamMemberResponse"
                 }
               }
             }
@@ -2833,7 +2833,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/teamMemberResponse"
+                  "$ref": "#/components/schemas/gatewayTeamMemberResponse"
                 }
               }
             }
@@ -2867,7 +2867,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listLibraryResponse"
+                  "$ref": "#/components/schemas/gatewayListLibraryResponse"
                 }
               }
             }
@@ -2901,7 +2901,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listLibraryAlphabetizedResponse"
+                  "$ref": "#/components/schemas/gatewayListLibraryAlphabetizedResponse"
                 }
               }
             }
@@ -2946,7 +2946,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/libraryResponse"
+                  "$ref": "#/components/schemas/gatewayLibraryResponse"
                 }
               }
             }
@@ -2980,7 +2980,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listProductCategoryResponse"
+                  "$ref": "#/components/schemas/gatewayListProductCategoryResponse"
                 }
               }
             }
@@ -3014,7 +3014,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/listProductResponse"
+                  "$ref": "#/components/schemas/gatewayListProductResponse"
                 }
               }
             }
@@ -3059,7 +3059,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/productResponse"
+                  "$ref": "#/components/schemas/gatewayProductResponse"
                 }
               }
             }
@@ -3874,273 +3874,230 @@
       "libraryResponse": {
         "type": "object",
         "properties": {
-          "author": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_content": {
+                "type": "string"
+              },
+              "next_steps_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "next_steps_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "professional_help_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "professional_help_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "fitnote_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "fitnote_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "more_information_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "more_information_content": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_link": {
+                "type": "string",
+                "nullable": true
+              },
+              "content_type": {
                 "type": "number",
-                "format": "float"
-              },
-              "title": {
-                "type": "string",
-                "nullable": true
-              },
-              "name": {
-                "type": "string"
-              },
-              "image": {
-                "type": "string",
-                "nullable": true
-              },
-              "bio": {
-                "type": "string",
-                "nullable": true
-              },
-              "updated_at": {
-                "type": "string"
+                "format": "float",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ]
               },
               "created_at": {
                 "type": "string"
               },
-              "interest": {
+              "updated_at": {
+                "type": "string"
+              },
+              "dictionary": {
                 "type": "string",
                 "nullable": true
               },
-              "display_order": {
+              "meta_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "get_well_soon": {
+                "type": "boolean"
+              },
+              "marketing_active": {
+                "type": "boolean"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "gb",
+                  "us"
+                ]
+              },
+              "reviewed_by": {
                 "type": "number",
                 "format": "float",
                 "nullable": true
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "updated_at",
-              "created_at"
-            ],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "content_type": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "fitnote_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "fitnote_content": {
-            "type": "string",
-            "nullable": true
-          },
-          "get_well_soon": {
-            "type": "boolean"
-          },
-          "id": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "marketing_active": {
-            "type": "boolean"
-          },
-          "meta_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "meta_description": {
-            "type": "string",
-            "nullable": true
-          },
-          "more_information_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "more_information_content": {
-            "type": "string",
-            "nullable": true
-          },
-          "next_steps_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "next_steps_content": {
-            "type": "string",
-            "nullable": true
-          },
-          "products": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "antihistamine_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "decongestant_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "fake_bundle": {
-                  "type": "boolean"
-                },
-                "general_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "gsl_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "id": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "in_stock": {
-                  "type": "boolean"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "nsaid_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "opioid_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "paracetamol_units": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "price_cents": {
-                  "type": "number",
-                  "format": "float"
-                },
-                "price_currency": {
-                  "type": "string"
-                },
-                "product_type": {
-                  "type": "string"
-                },
-                "thumbnail": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "uuid": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "why_this_bundle": {
-                  "type": "string",
-                  "nullable": true
+              },
+              "reviewed_at": {
+                "type": "string",
+                "nullable": true
+              },
+              "draft": {
+                "type": "boolean"
+              },
+              "reviewer_id": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "author_id": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "linked_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
                 }
-              },
-              "required": [
-                "name",
-                "uuid"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "professional_help_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "professional_help_content": {
-            "type": "string",
-            "nullable": true
-          },
-          "reviewer": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "format": "float"
-              },
-              "title": {
-                "type": "string",
-                "nullable": true
-              },
-              "name": {
-                "type": "string"
-              },
-              "image": {
-                "type": "string",
-                "nullable": true
-              },
-              "bio": {
-                "type": "string",
-                "nullable": true
-              },
-              "updated_at": {
-                "type": "string"
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "interest": {
-                "type": "string",
-                "nullable": true
-              },
-              "display_order": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
               }
             },
             "required": [
               "id",
-              "name",
-              "updated_at",
-              "created_at"
+              "content_type",
+              "country"
             ],
-            "additionalProperties": false,
-            "nullable": true
+            "additionalProperties": false
           },
-          "reviewed_at": {
-            "type": "string",
-            "nullable": true
-          },
-          "summary": {
-            "type": "string"
-          },
-          "summary_content": {
-            "type": "string"
-          },
-          "updated_at": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "video_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "video_link": {
-            "type": "string",
-            "nullable": true
+          "query_time": {
+            "type": "integer"
           }
         },
         "required": [
-          "content_type",
-          "uuid"
+          "success",
+          "query_time"
         ],
         "additionalProperties": false
       },
@@ -4352,33 +4309,105 @@
         "additionalProperties": false
       },
       "listLibraryResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "format": "float",
-              "nullable": true
-            },
-            "uuid": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "summary": {
-              "type": "string",
-              "nullable": true
-            },
-            "summary_content": {
-              "type": "string"
-            }
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
-          "required": [
-            "uuid",
-            "summary_content"
-          ],
-          "additionalProperties": false
-        }
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "summary_content": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "content_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "reviewed_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_product_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
       },
       "userResponse": {
         "type": "object",
@@ -4614,46 +4643,58 @@
       "editorResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "format": "float"
+          "success": {
+            "type": "boolean"
           },
-          "title": {
-            "type": "string",
-            "nullable": true
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
           },
-          "name": {
-            "type": "string"
-          },
-          "image": {
-            "type": "string",
-            "nullable": true
-          },
-          "bio": {
-            "type": "string",
-            "nullable": true
-          },
-          "updated_at": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "interest": {
-            "type": "string",
-            "nullable": true
-          },
-          "display_order": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
+          "query_time": {
+            "type": "integer"
           }
         },
         "required": [
-          "id",
-          "name",
-          "updated_at",
-          "created_at"
+          "success",
+          "query_time"
         ],
         "additionalProperties": false
       },
@@ -4751,53 +4792,97 @@
         "additionalProperties": false
       },
       "listEditorResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "format": "float"
-            },
-            "title": {
-              "type": "string",
-              "nullable": true
-            },
-            "name": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string",
-              "nullable": true
-            },
-            "bio": {
-              "type": "string",
-              "nullable": true
-            },
-            "updated_at": {
-              "type": "string"
-            },
-            "created_at": {
-              "type": "string"
-            },
-            "interest": {
-              "type": "string",
-              "nullable": true
-            },
-            "display_order": {
-              "type": "number",
-              "format": "float",
-              "nullable": true
-            }
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
-          "required": [
-            "id",
-            "name",
-            "updated_at",
-            "created_at"
-          ],
-          "additionalProperties": false
-        }
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "interest": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
       },
       "listActivityLogsBody": {
         "type": "object",
@@ -5432,119 +5517,375 @@
       "productResponse": {
         "type": "object",
         "properties": {
-          "antihistamine_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "category": {
-            "type": "string"
-          },
-          "decongestant_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "dosage_form": {
-            "type": "string"
-          },
-          "fake_bundle": {
+          "success": {
             "type": "boolean"
           },
-          "general_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "gsl_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "id": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "filename": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "url": {
-                  "type": "string"
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "draft": {
+                "type": "boolean"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
                 }
               },
-              "additionalProperties": false
-            }
+              "product_type": {
+                "type": "number",
+                "format": "float"
+              },
+              "price_cents": {
+                "type": "number",
+                "format": "float"
+              },
+              "price_currency": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float"
+              },
+              "fulfilment_product_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "linked_libraries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "main_image": {
+                "type": "string",
+                "nullable": true
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string",
+                "nullable": true
+              },
+              "short_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "age_from": {
+                "type": "string",
+                "nullable": true
+              },
+              "age_to": {
+                "type": "string",
+                "nullable": true
+              },
+              "antihistamine_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "codeine": {
+                "type": "boolean"
+              },
+              "cost_price_cents": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "cost_price_currency": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "gb",
+                  "us"
+                ]
+              },
+              "decongestant_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "dosage_form": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "dosage_instructions": {
+                "type": "string",
+                "nullable": true
+              },
+              "fake_bundle": {
+                "type": "boolean"
+              },
+              "general_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "gsl_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "in_stock": {
+                "type": "boolean"
+              },
+              "product_legal_category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "mailchimp_tag": {
+                "type": "string",
+                "nullable": true
+              },
+              "marketing_active": {
+                "type": "boolean"
+              },
+              "max_per_transaction": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "min_stock_kept": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "nsaid_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "opioid_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "paracetamol_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pil_url": {
+                "type": "string",
+                "nullable": true
+              },
+              "pip_code": {
+                "type": "string",
+                "nullable": true
+              },
+              "product_count": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "product_identifier": {
+                "type": "string",
+                "nullable": true
+              },
+              "product_license_number": {
+                "type": "string",
+                "nullable": true
+              },
+              "pseudoephedrine_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "track_quantity": {
+                "type": "boolean"
+              },
+              "traditional_herbal_remedy": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "is_popular": {
+                "type": "boolean"
+              },
+              "list_of_ingredient": {
+                "type": "string",
+                "nullable": true
+              },
+              "list_of_sympton": {
+                "type": "string",
+                "nullable": true
+              },
+              "bundle_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "country"
+            ],
+            "additionalProperties": false
           },
-          "in_stock": {
-            "type": "boolean"
-          },
-          "marketing_active": {
-            "type": "boolean"
-          },
-          "meta_description": {
-            "type": "string",
-            "nullable": true
-          },
-          "meta_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string"
-          },
-          "nsaid_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "opioid_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "paracetamol_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "price_cents": {
-            "type": "number",
-            "format": "float"
-          },
-          "price_currency": {
-            "type": "string"
-          },
-          "product_type": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string",
-            "nullable": true
-          },
-          "thumbnail": {
-            "type": "string",
-            "nullable": true
-          },
-          "pseudoephedrine_units": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "uuid": {
-            "type": "string",
-            "format": "uuid"
+          "query_time": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "uuid"
+          "success",
+          "query_time"
         ],
         "additionalProperties": false
       },
@@ -5869,6 +6210,805 @@
         "additionalProperties": false
       },
       "listProductResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayEditorResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "float"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "interest": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListEditorResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float"
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "interest": {
+              "type": "string",
+              "nullable": true
+            },
+            "display_order": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "short_bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListTeamMemberResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "short_bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "display_order": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayLibraryResponse": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "fitnote_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "fitnote_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "get_well_soon": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "antihistamine_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "decongestant_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "fake_bundle": {
+                  "type": "boolean"
+                },
+                "general_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "gsl_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "id": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "in_stock": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "nsaid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "opioid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "paracetamol_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "price_cents": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "price_currency": {
+                  "type": "string"
+                },
+                "product_type": {
+                  "type": "string"
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "why_this_bundle": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name",
+                "uuid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "professional_help_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "professional_help_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "reviewed_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string"
+          },
+          "summary_content": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "video_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_link": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "content_type",
+          "uuid"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListLibraryResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "summary_content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid",
+            "summary_content"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayListLibraryAlphabetizedResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "title": {
+              "type": "string"
+            },
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "content_type": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid",
+            "title",
+            "items",
+            "content_type",
+            "url"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayListProductCategoryResponse": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "gateWwayProductResponse": {
+        "type": "object",
+        "properties": {
+          "antihistamine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "category": {
+            "type": "string"
+          },
+          "decongestant_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "dosage_form": {
+            "type": "string"
+          },
+          "fake_bundle": {
+            "type": "boolean"
+          },
+          "general_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "gsl_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "id": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "in_stock": {
+            "type": "boolean"
+          },
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "nsaid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "opioid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "paracetamol_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "price_cents": {
+            "type": "number",
+            "format": "float"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "product_type": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail": {
+            "type": "string",
+            "nullable": true
+          },
+          "pseudoephedrine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "name",
+          "uuid"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListProductResponse": {
         "type": "array",
         "items": {
           "type": "object",
@@ -6026,153 +7166,6 @@
         ],
         "additionalProperties": false
       },
-      "listTeamMemberResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "page": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "total": {
-                "type": "number",
-                "format": "float"
-              },
-              "limit": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "pages": {
-                "type": "number",
-                "format": "float",
-                "nullable": true
-              },
-              "records": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "title": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "bio": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    },
-                    "short_bio": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "is_active": {
-                      "type": "boolean"
-                    },
-                    "display_order": {
-                      "type": "number",
-                      "format": "float",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "updated_at"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "metaData": {
-                "example": null
-              }
-            },
-            "required": [
-              "total",
-              "records"
-            ],
-            "additionalProperties": false
-          },
-          "query_time": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "success",
-          "query_time"
-        ],
-        "additionalProperties": false
-      },
-      "listLibraryAlphabetizedResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "format": "float",
-              "nullable": true
-            },
-            "uuid": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "summary": {
-              "type": "string",
-              "nullable": true
-            },
-            "title": {
-              "type": "string"
-            },
-            "items": {
-              "type": "number",
-              "format": "float"
-            },
-            "content_type": {
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "uuid",
-            "title",
-            "items",
-            "content_type",
-            "url"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "listProductCategoryResponse": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
       "listTeamMembersBody": {
         "type": "object",
         "properties": {
@@ -6267,6 +7260,102 @@
         },
         "required": [
           "name"
+        ],
+        "additionalProperties": false
+      },
+      "listTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "short_bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_active": {
+                      "type": "boolean"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
         ],
         "additionalProperties": false
       }
