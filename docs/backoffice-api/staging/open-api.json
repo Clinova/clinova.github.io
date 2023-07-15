@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.15.1"
+    "version": "2.15.3"
   },
   "servers": [
     {
@@ -1188,8 +1188,7 @@
             "in": "query",
             "name": "ids",
             "schema": {
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+              "type": "string"
             },
             "required": false
           },
@@ -2672,40 +2671,9 @@
           },
           {
             "in": "query",
-            "name": "ids",
-            "schema": {
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
-            },
-            "required": false
-          },
-          {
-            "in": "query",
             "name": "search_name",
             "schema": {
               "type": "string"
-            },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "created_before",
-            "schema": {
-              "type": "string",
-              "pattern": "\\d+",
-              "description": "MS since epoch",
-              "example": "1649155901169"
-            },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "created_after",
-            "schema": {
-              "type": "string",
-              "pattern": "\\d+",
-              "description": "MS since epoch",
-              "example": "1649155901169"
             },
             "required": false
           }
@@ -2749,6 +2717,111 @@
             "in": "path",
             "name": "id",
             "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members": {
+      "get": {
+        "summary": "List all team members",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members/{id}": {
+      "get": {
+        "summary": "Get team member by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
               "type": "string",
               "format": "uuid"
             },
@@ -2760,7 +2833,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/editorResponse"
+                  "$ref": "#/components/schemas/teamMemberResponse"
                 }
               }
             }
@@ -2987,6 +3060,318 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/productResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/team_members": {
+      "get": {
+        "summary": "List and filter all team members",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order",
+                "is_active"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a team member",
+        "tags": [
+          "Team member"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postTeamMemberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_team_members": {
+      "post": {
+        "summary": "List and filter all team members",
+        "tags": [
+          "Team member"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listTeamMembersBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/team_members/{id}": {
+      "get": {
+        "summary": "Get team member by id",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a team member",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postTeamMemberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
                 }
               }
             }
@@ -5580,6 +5965,163 @@
           "additionalProperties": false
         }
       },
+      "teamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "short_bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "is_active": {
+                "type": "boolean"
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "short_bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_active": {
+                      "type": "boolean"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
       "listLibraryAlphabetizedResponse": {
         "type": "array",
         "items": {
@@ -5630,6 +6172,103 @@
             "type": "string"
           }
         }
+      },
+      "listTeamMembersBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "name",
+              "title",
+              "created",
+              "display_order",
+              "is_active"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postTeamMemberBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "short_bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
       }
     },
     "examples": {
