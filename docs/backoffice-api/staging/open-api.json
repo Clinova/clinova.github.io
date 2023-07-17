@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.16.4"
+    "version": "2.16.5"
   },
   "servers": [
     {
@@ -5779,7 +5779,7 @@
                 "type": "string",
                 "nullable": true
               },
-              "list_of_sympton": {
+              "list_of_symptom": {
                 "type": "string",
                 "nullable": true
               },
@@ -6187,7 +6187,7 @@
             "type": "string",
             "nullable": true
           },
-          "list_of_sympton": {
+          "list_of_symptom": {
             "type": "string",
             "nullable": true
           },
