@@ -1,25 +1,27 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "API documentation",
-    "description": "API documentation",
-    "version": "1.0.2"
+    "title": "API Heathwords",
+    "description": "API Heathwords",
+    "version": "2.16.6"
   },
   "servers": [
     {
-      "url": "http://localhost:9000",
-      "description": "TestServer"
+      "url": "https://staging.api.caidr.co",
+      "description": "Staging"
     },
     {
-      "url": "https://tbd.api.io",
-      "description": "Production server"
+      "url": "https://api.caidr.co",
+      "description": "Production"
     }
   ],
   "paths": {
-    "/ping": {
+    "/health": {
       "get": {
         "summary": "Check server health",
-        "tags": ["Health"],
+        "tags": [
+          "Health"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -33,10 +35,12 @@
         }
       }
     },
-    "/pingc": {
+    "/healthc": {
       "get": {
         "summary": "Check server health",
-        "tags": ["Health"],
+        "tags": [
+          "Health"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -53,7 +57,9 @@
     "/v1/pdf": {
       "post": {
         "summary": "Generate pdf file",
-        "tags": ["Pdf"],
+        "tags": [
+          "Pdf"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -80,7 +86,9 @@
     "/v1/auth/request-code": {
       "post": {
         "summary": "Auth request code",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -107,7 +115,9 @@
     "/v1/auth/login": {
       "post": {
         "summary": "Auth login",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -134,7 +144,9 @@
     "/v1/auth/refresh-token": {
       "post": {
         "summary": "Auth refresh token",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -161,7 +173,9 @@
     "/v1/me": {
       "get": {
         "summary": "Get me info",
-        "tags": ["Me"],
+        "tags": [
+          "Me"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -190,10 +204,12 @@
         }
       }
     },
-    "/v1/file/upload-url": {
+    "/v1/files/upload-url": {
       "post": {
         "summary": "File upload url request",
-        "tags": ["File"],
+        "tags": [
+          "File"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -217,10 +233,12 @@
         }
       }
     },
-    "/v1/libraries": {
+    "/v1/files": {
       "get": {
-        "summary": "List and filter all libraries",
-        "tags": ["Library"],
+        "summary": "List and filter all files",
+        "tags": [
+          "File"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -229,7 +247,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -250,7 +268,10 @@
             "name": "order",
             "schema": {
               "type": "string",
-              "enum": ["ASC", "DESC"],
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
               "default": "DESC"
             },
             "required": false
@@ -260,8 +281,193 @@
             "name": "sort",
             "schema": {
               "type": "string",
-              "enum": ["created"],
+              "enum": [
+                "created",
+                "name",
+                "content_type"
+              ],
               "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_user",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listFileResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/{id}": {
+      "get": {
+        "summary": "Get file by id",
+        "tags": [
+          "File"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/libraries": {
+      "get": {
+        "summary": "List and filter all libraries",
+        "tags": [
+          "Library"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "created",
+                "summary",
+                "country",
+                "draft",
+                "content_type"
+              ],
+              "default": "updated"
             },
             "required": false
           },
@@ -303,7 +509,10 @@
             "name": "country",
             "schema": {
               "type": "string",
-              "enum": ["gb", "us"]
+              "enum": [
+                "gb",
+                "us"
+              ]
             },
             "required": false
           },
@@ -359,7 +568,9 @@
       },
       "post": {
         "summary": "Create a library",
-        "tags": ["Library"],
+        "tags": [
+          "Library"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -401,7 +612,9 @@
     "/v1/_libraries": {
       "post": {
         "summary": "List and filter all libraries",
-        "tags": ["Library"],
+        "tags": [
+          "Library"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -442,8 +655,21 @@
     },
     "/v1/libraries/{id}": {
       "get": {
-        "summary": "Library",
-        "tags": ["Library"],
+        "summary": "Get library by id",
+        "tags": [
+          "Library"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -473,7 +699,20 @@
       },
       "put": {
         "summary": "Update a library",
-        "tags": ["Library"],
+        "tags": [
+          "Library"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -512,16 +751,18 @@
         }
       }
     },
-    "/v1/libraries/{id}/review": {
+    "/v1/libraries/{id}/link_products": {
       "put": {
-        "summary": "Review a library",
-        "tags": ["Library"],
+        "summary": "Link a library to recommended products",
+        "tags": [
+          "Library"
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/reviewLibraryBody"
+                "$ref": "#/components/schemas/linkLibraryProductsBody"
               }
             }
           }
@@ -557,7 +798,9 @@
     "/v1/users": {
       "get": {
         "summary": "List and filter all users",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -566,7 +809,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -587,7 +830,10 @@
             "name": "order",
             "schema": {
               "type": "string",
-              "enum": ["ASC", "DESC"],
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
               "default": "DESC"
             },
             "required": false
@@ -597,8 +843,13 @@
             "name": "sort",
             "schema": {
               "type": "string",
-              "enum": ["created"],
-              "default": "created"
+              "enum": [
+                "updated",
+                "created",
+                "name",
+                "role"
+              ],
+              "default": "updated"
             },
             "required": false
           },
@@ -632,7 +883,10 @@
             "name": "role",
             "schema": {
               "type": "string",
-              "enum": ["admin", "editor"]
+              "enum": [
+                "admin",
+                "editor"
+              ]
             },
             "required": false
           },
@@ -687,8 +941,10 @@
         }
       },
       "post": {
-        "summary": "Create a user",
-        "tags": ["User"],
+        "summary": "Create an user",
+        "tags": [
+          "User"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -730,7 +986,9 @@
     "/v1/_users": {
       "post": {
         "summary": "List and filter all users",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -771,8 +1029,21 @@
     },
     "/v1/users/{id}": {
       "get": {
-        "summary": "User",
-        "tags": ["User"],
+        "summary": "Get user by id",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -801,8 +1072,21 @@
         }
       },
       "put": {
-        "summary": "Update a user",
-        "tags": ["User"],
+        "summary": "Update an user",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -841,10 +1125,12 @@
         }
       }
     },
-    "/v1/activity_logs": {
+    "/v1/editors": {
       "get": {
-        "summary": "List and filter all activity logs",
-        "tags": ["Activity Log"],
+        "summary": "List and filter all editors",
+        "tags": [
+          "Editor"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -853,7 +1139,7 @@
               "type": "number",
               "format": "float",
               "minimum": 1,
-              "maximum": 100,
+              "maximum": 500,
               "default": 10
             },
             "required": false
@@ -874,7 +1160,10 @@
             "name": "order",
             "schema": {
               "type": "string",
-              "enum": ["ASC", "DESC"],
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
               "default": "DESC"
             },
             "required": false
@@ -884,7 +1173,319 @@
             "name": "sort",
             "schema": {
               "type": "string",
-              "enum": ["created"],
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an editor",
+        "tags": [
+          "Editor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postEditorBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_editors": {
+      "post": {
+        "summary": "List and filter all editors",
+        "tags": [
+          "Editor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listEditorsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editors/{id}": {
+      "get": {
+        "summary": "Get editor by id",
+        "tags": [
+          "Editor"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an editor",
+        "tags": [
+          "Editor"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postEditorBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/editorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/activity_logs": {
+      "get": {
+        "summary": "List and filter all activity logs",
+        "tags": [
+          "Activity Log"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created"
+              ],
               "default": "created"
             },
             "required": false
@@ -977,7 +1578,9 @@
     "/v1/_activity_logs": {
       "post": {
         "summary": "List and filter all activity logs",
-        "tags": ["Activity Log"],
+        "tags": [
+          "Activity Log"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -994,6 +1597,1781 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/listActivityLogResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/categories": {
+      "get": {
+        "summary": "List and filter all categories",
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "created",
+                "name",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listCategoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a category",
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postCategoryBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/categoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_categories": {
+      "post": {
+        "summary": "List and filter all categories",
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listCategoriesBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listCategoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/categories/{id}": {
+      "get": {
+        "summary": "Get category by id",
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/categoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a category",
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postCategoryBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/categoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_settings/groups": {
+      "get": {
+        "summary": "List all setting groups",
+        "tags": [
+          "Setting"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listSettingGroupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/settings": {
+      "get": {
+        "summary": "List and filter all settings",
+        "tags": [
+          "Setting"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "created",
+                "value",
+                "id"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "group_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "all",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listSettingResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a setting",
+        "tags": [
+          "Setting"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postSettingBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/settingResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_settings": {
+      "post": {
+        "summary": "List and filter all settings",
+        "tags": [
+          "Setting"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listSettingsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listSettingResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/settings/{id}": {
+      "get": {
+        "summary": "Get setting by id",
+        "tags": [
+          "Setting"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/settingResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a setting",
+        "tags": [
+          "Setting"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postSettingUpdateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/settingResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products": {
+      "get": {
+        "summary": "List and filter all products",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created",
+                "updated",
+                "name",
+                "country",
+                "draft",
+                "price",
+                "quantity"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "product_type",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "is_popular",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "country",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "gb",
+                "us"
+              ]
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a product",
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postProductBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_products": {
+      "post": {
+        "summary": "List and filter all products",
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listProductsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/{id}": {
+      "get": {
+        "summary": "Get product by id",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a product",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postProductBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/editors": {
+      "get": {
+        "summary": "List all editors",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/editors/{id}": {
+      "get": {
+        "summary": "Get editor by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayEditorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members": {
+      "get": {
+        "summary": "List all team members",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members/{id}": {
+      "get": {
+        "summary": "Get team member by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries": {
+      "get": {
+        "summary": "List all libraries",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListLibraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries/alphabetized": {
+      "get": {
+        "summary": "List all libraries alphabetized",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListLibraryAlphabetizedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/libraries/{id}": {
+      "get": {
+        "summary": "Get library by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayLibraryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/product_categories": {
+      "get": {
+        "summary": "List all product categories",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListProductCategoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/products": {
+      "get": {
+        "summary": "List all products",
+        "tags": [
+          "Gateway"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/products/{id}": {
+      "get": {
+        "summary": "Get product by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/team_members": {
+      "get": {
+        "summary": "List and filter all team members",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order",
+                "is_active"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a team member",
+        "tags": [
+          "Team member"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postTeamMemberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/_team_members": {
+      "post": {
+        "summary": "List and filter all team members",
+        "tags": [
+          "Team member"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listTeamMembersBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/team_members/{id}": {
+      "get": {
+        "summary": "Get team member by id",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a team member",
+        "tags": [
+          "Team member"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postTeamMemberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamMemberResponse"
                 }
               }
             }
@@ -1041,7 +3419,13 @@
           },
           "error_code": {
             "type": "string",
-            "enum": ["400", "401", "404", "429", "500"],
+            "enum": [
+              "400",
+              "401",
+              "404",
+              "429",
+              "500"
+            ],
             "required": true,
             "description": "InvalidArgument,400 | Unauthorized,401 | NotFound,404 | TooManyRequests,429 | UnknownException,500"
           },
@@ -1068,21 +3452,34 @@
               },
               "http": {
                 "type": "string",
-                "enum": ["OK", "ERROR"]
+                "enum": [
+                  "OK",
+                  "ERROR"
+                ]
               },
               "postgres": {
                 "type": "string",
-                "enum": ["OK", "ERROR"]
+                "enum": [
+                  "OK",
+                  "ERROR"
+                ]
               }
             },
-            "required": ["version", "http", "postgres"],
+            "required": [
+              "version",
+              "http",
+              "postgres"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "pdfGenerationResponse": {
@@ -1099,7 +3496,11 @@
             "type": "integer"
           }
         },
-        "required": ["success", "data", "query_time"],
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "pdfGenerationRequestBody": {
@@ -1118,7 +3519,11 @@
             "format": "email"
           }
         },
-        "required": ["key", "name", "email"],
+        "required": [
+          "key",
+          "name",
+          "email"
+        ],
         "additionalProperties": false
       },
       "postLoginRequesBody": {
@@ -1129,7 +3534,9 @@
             "format": "email"
           }
         },
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "additionalProperties": false
       },
       "postLoginBody": {
@@ -1144,7 +3551,10 @@
             "format": "email"
           }
         },
-        "required": ["code", "email"],
+        "required": [
+          "code",
+          "email"
+        ],
         "additionalProperties": false
       },
       "postRefreshTokenBody": {
@@ -1155,28 +3565,31 @@
             "minLength": 1
           }
         },
-        "required": ["token"],
+        "required": [
+          "token"
+        ],
         "additionalProperties": false
       },
       "userAuthRequestCodeResponse": {
-        "swagger": {
-          "type": "object",
-          "properties": {
-            "success": {
-              "type": "boolean"
-            },
-            "data": {
-              "type": "string",
-              "example": "ok"
-            },
-            "query_time": {
-              "type": "integer"
-            }
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
-          "required": ["success", "data", "query_time"],
-          "additionalProperties": false
+          "data": {
+            "type": "string",
+            "example": "ok"
+          },
+          "query_time": {
+            "type": "integer"
+          }
         },
-        "components": {}
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
       },
       "userAuthenticatedResponse": {
         "type": "object",
@@ -1210,18 +3623,27 @@
                     "format": "float"
                   }
                 },
-                "required": ["access_token", "refresh_token"],
+                "required": [
+                  "access_token",
+                  "refresh_token"
+                ],
                 "additionalProperties": false
               }
             },
-            "required": ["id", "role"],
+            "required": [
+              "id",
+              "role"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "meResponse": {
@@ -1241,16 +3663,26 @@
               },
               "name": {
                 "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
               }
             },
-            "required": ["id", "role"],
+            "required": [
+              "id",
+              "role"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "postFileUploadUrlBody": {
@@ -1261,7 +3693,9 @@
             "minLength": 1
           }
         },
-        "required": ["file_name"],
+        "required": [
+          "file_name"
+        ],
         "additionalProperties": false
       },
       "fileUploadUrlResponse": {
@@ -1281,16 +3715,160 @@
               },
               "signed_url": {
                 "type": "string"
+              },
+              "file_url": {
+                "type": "string"
               }
             },
-            "required": ["file_id", "file_name", "signed_url"],
+            "required": [
+              "file_id",
+              "file_name",
+              "signed_url",
+              "file_url"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "fileResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "upload_name": {
+                "type": "string"
+              },
+              "content_type": {
+                "type": "string"
+              },
+              "file_url": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "upload_name",
+              "content_type",
+              "file_url",
+              "created_by",
+              "created_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listFileResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "upload_name": {
+                      "type": "string"
+                    },
+                    "content_type": {
+                      "type": "string"
+                    },
+                    "file_url": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "upload_name",
+                    "content_type",
+                    "file_url",
+                    "created_by",
+                    "created_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "libraryResponse": {
@@ -1355,15 +3933,19 @@
               "content_type": {
                 "type": "number",
                 "format": "float",
-                "enum": [0, 1, 2, 3, 4]
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ]
               },
               "created_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "updated_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "dictionary": {
                 "type": "string",
@@ -1385,37 +3967,138 @@
               },
               "country": {
                 "type": "string",
-                "enum": ["gb", "us"]
+                "enum": [
+                  "gb",
+                  "us"
+                ]
               },
               "reviewed_by": {
-                "type": "string",
+                "type": "number",
+                "format": "float",
                 "nullable": true
               },
               "reviewed_at": {
-                "type": "number",
-                "format": "float",
+                "type": "string",
                 "nullable": true
               },
               "draft": {
                 "type": "boolean"
               },
               "reviewer_id": {
-                "type": "string",
+                "type": "number",
+                "format": "float",
                 "nullable": true
               },
               "author_id": {
-                "type": "string",
+                "type": "number",
+                "format": "float",
                 "nullable": true
+              },
+              "linked_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
-            "required": ["id", "content_type", "country"],
+            "required": [
+              "id",
+              "content_type",
+              "country"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "listLibrariesBody": {
@@ -1425,7 +4108,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -1436,13 +4119,23 @@
           },
           "order": {
             "type": "string",
-            "enum": ["ASC", "DESC"],
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
             "default": "DESC"
           },
           "sort": {
             "type": "string",
-            "enum": ["created"],
-            "default": "created"
+            "enum": [
+              "updated",
+              "created",
+              "summary",
+              "country",
+              "draft",
+              "content_type"
+            ],
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -1462,7 +4155,10 @@
           },
           "country": {
             "type": "string",
-            "enum": ["gb", "us"]
+            "enum": [
+              "gb",
+              "us"
+            ]
           },
           "created_before": {
             "type": "string",
@@ -1486,7 +4182,8 @@
             "type": "string"
           },
           "summary_content": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "next_steps_title": {
             "type": "string",
@@ -1529,7 +4226,13 @@
           "content_type": {
             "type": "number",
             "format": "float",
-            "enum": [0, 1, 2, 3, 4]
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
           },
           "dictionary": {
             "type": "string",
@@ -1553,28 +4256,56 @@
           },
           "country": {
             "type": "string",
-            "enum": ["gb", "us"]
+            "enum": [
+              "gb",
+              "us"
+            ]
           },
           "reviewer_id": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "reviewed_by": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "reviewed_at": {
             "type": "string",
             "nullable": true
           },
           "author_id": {
-            "type": "string",
+            "type": "number",
+            "format": "float",
             "nullable": true
+          },
+          "linked_product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         },
-        "required": ["summary", "summary_content", "content_type", "country"],
+        "required": [
+          "summary",
+          "content_type",
+          "country"
+        ],
         "additionalProperties": false
       },
-      "reviewLibraryBody": {
+      "linkLibraryProductsBody": {
         "type": "object",
         "properties": {
-          "draft": {
-            "type": "boolean"
+          "product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         },
-        "required": ["draft"],
         "additionalProperties": false
       },
       "listLibraryResponse": {
@@ -1584,37 +4315,98 @@
             "type": "boolean"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "summary": {
-                  "type": "string"
-                },
-                "summary_content": {
-                  "type": "string"
-                },
-                "draft": {
-                  "type": "boolean"
-                },
-                "country": {
-                  "type": "string",
-                  "enum": ["gb", "us"]
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "summary_content": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "content_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "reviewed_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_product_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "required": ["id", "country"],
-              "additionalProperties": false
-            }
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "data", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "userResponse": {
@@ -1635,26 +4427,36 @@
               "name": {
                 "type": "string"
               },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
               "email": {
                 "type": "string"
               },
               "updated_at": {
-                "type": "number",
-                "format": "float"
+                "type": "string"
               },
               "created_by": {
                 "type": "string",
                 "nullable": true
               }
             },
-            "required": ["id", "role", "updated_at"],
+            "required": [
+              "id",
+              "role",
+              "updated_at"
+            ],
             "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
       "listUsersBody": {
@@ -1664,7 +4466,7 @@
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -1675,13 +4477,21 @@
           },
           "order": {
             "type": "string",
-            "enum": ["ASC", "DESC"],
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
             "default": "DESC"
           },
           "sort": {
             "type": "string",
-            "enum": ["created"],
-            "default": "created"
+            "enum": [
+              "updated",
+              "created",
+              "name",
+              "role"
+            ],
+            "default": "updated"
           },
           "ids": {
             "type": "array",
@@ -1698,7 +4508,10 @@
           },
           "role": {
             "type": "string",
-            "enum": ["admin", "editor"]
+            "enum": [
+              "admin",
+              "editor"
+            ]
           },
           "created_before": {
             "type": "string",
@@ -1721,15 +4534,25 @@
           "name": {
             "type": "string"
           },
+          "photo": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
           "primary_role": {
             "type": "string",
-            "enum": ["admin", "editor"]
+            "enum": [
+              "admin",
+              "editor"
+            ]
           }
         },
-        "required": ["name", "email", "primary_role"],
+        "required": [
+          "name",
+          "email",
+          "primary_role"
+        ],
         "additionalProperties": false
       },
       "listUserResponse": {
@@ -1739,50 +4562,150 @@
             "type": "boolean"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "updated_at": {
-                  "type": "number",
-                  "format": "float"
-                },
-                "created_by": {
-                  "type": "string",
-                  "nullable": true
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "role",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "required": ["id", "role", "updated_at"],
-              "additionalProperties": false
-            }
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
           },
           "query_time": {
             "type": "integer"
           }
         },
-        "required": ["success", "data", "query_time"],
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       },
-      "listActivityLogsBody": {
+      "editorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listEditorsBody": {
         "type": "object",
         "properties": {
           "limit": {
             "type": "number",
             "format": "float",
             "minimum": 1,
-            "maximum": 100,
+            "maximum": 500,
             "default": 10
           },
           "page": {
@@ -1793,12 +4716,203 @@
           },
           "order": {
             "type": "string",
-            "enum": ["ASC", "DESC"],
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
             "default": "DESC"
           },
           "sort": {
             "type": "string",
-            "enum": ["created"],
+            "enum": [
+              "updated",
+              "name",
+              "title",
+              "created",
+              "display_order"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postEditorBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "interest": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "listEditorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "interest": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listActivityLogsBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created"
+            ],
             "default": "created"
           },
           "ids": {
@@ -1871,8 +4985,7 @@
                   "additionalProperties": false
                 },
                 "created_at": {
-                  "type": "number",
-                  "format": "float"
+                  "type": "string"
                 }
               },
               "required": [
@@ -1891,7 +5004,2431 @@
             "type": "integer"
           }
         },
-        "required": ["success", "data", "query_time"],
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "categoryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listCategoriesBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "created",
+              "name",
+              "display_order"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postCategoryBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ],
+        "additionalProperties": false
+      },
+      "listCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "slug": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "slug",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "settingResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "group": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "additionalProperties": false
+              },
+              "group_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "value",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listSettingsBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "created",
+              "value",
+              "id"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "all": {
+            "type": "boolean"
+          },
+          "group_id": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postSettingBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "group_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "postSettingUpdateBody": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "group_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "listSettingResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "group": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "group_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listSettingGroupResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "productResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "draft": {
+                "type": "boolean"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "product_type": {
+                "type": "number",
+                "format": "float"
+              },
+              "price_cents": {
+                "type": "number",
+                "format": "float"
+              },
+              "price_currency": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float"
+              },
+              "fulfilment_product_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "linked_libraries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "main_image": {
+                "type": "string",
+                "nullable": true
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string",
+                "nullable": true
+              },
+              "short_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "age_from": {
+                "type": "string",
+                "nullable": true
+              },
+              "age_to": {
+                "type": "string",
+                "nullable": true
+              },
+              "antihistamine_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "codeine": {
+                "type": "boolean"
+              },
+              "cost_price_cents": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "cost_price_currency": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "gb",
+                  "us"
+                ]
+              },
+              "decongestant_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "dosage_form": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "dosage_instructions": {
+                "type": "string",
+                "nullable": true
+              },
+              "fake_bundle": {
+                "type": "boolean"
+              },
+              "general_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "gsl_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "in_stock": {
+                "type": "boolean"
+              },
+              "product_legal_category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "mailchimp_tag": {
+                "type": "string",
+                "nullable": true
+              },
+              "marketing_active": {
+                "type": "boolean"
+              },
+              "max_per_transaction": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "min_stock_kept": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "nsaid_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "opioid_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "paracetamol_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pil_url": {
+                "type": "string",
+                "nullable": true
+              },
+              "pip_code": {
+                "type": "string",
+                "nullable": true
+              },
+              "product_count": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "product_identifier": {
+                "type": "string",
+                "nullable": true
+              },
+              "product_license_number": {
+                "type": "string",
+                "nullable": true
+              },
+              "pseudoephedrine_units": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "track_quantity": {
+                "type": "boolean"
+              },
+              "traditional_herbal_remedy": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "is_popular": {
+                "type": "boolean"
+              },
+              "list_of_ingredient": {
+                "type": "string",
+                "nullable": true
+              },
+              "list_of_symptom": {
+                "type": "string",
+                "nullable": true
+              },
+              "bundle_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "country"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listProductsBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created",
+              "updated",
+              "name",
+              "country",
+              "draft",
+              "price",
+              "quantity"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "category_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "is_popular": {
+            "type": "boolean"
+          },
+          "product_type": {
+            "type": "integer"
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "gb",
+              "us"
+            ]
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postProductBody": {
+        "type": "object",
+        "properties": {
+          "draft": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "main_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "category_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "product_type": {
+            "type": "number",
+            "format": "float",
+            "enum": [
+              1,
+              0
+            ]
+          },
+          "price_cents": {
+            "type": "number",
+            "format": "float"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "fulfilment_product_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "short_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "age_from": {
+            "type": "string",
+            "nullable": true
+          },
+          "age_to": {
+            "type": "string",
+            "nullable": true
+          },
+          "antihistamine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "codeine": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "cost_price_cents": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "gb",
+              "us"
+            ]
+          },
+          "decongestant_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "dosage_form": {
+            "type": "string",
+            "nullable": true
+          },
+          "dosage_instructions": {
+            "type": "string",
+            "nullable": true
+          },
+          "fake_bundle": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "general_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "gsl_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "in_stock": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "product_legal_category": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailchimp_tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "marketing_active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "max_per_transaction": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "min_stock_kept": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "nsaid": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "nsaid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "opioid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "paracetamol_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "pil_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "pip_code": {
+            "type": "string",
+            "nullable": true
+          },
+          "product_count": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "product_identifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "product_license_number": {
+            "type": "string",
+            "nullable": true
+          },
+          "pseudoephedrine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "track_quantity": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "traditional_herbal_remedy": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_popular": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "list_of_ingredient": {
+            "type": "string",
+            "nullable": true
+          },
+          "list_of_symptom": {
+            "type": "string",
+            "nullable": true
+          },
+          "bundle_product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "default": []
+          }
+        },
+        "required": [
+          "draft",
+          "name",
+          "product_type",
+          "price_cents",
+          "country"
+        ],
+        "additionalProperties": false
+      },
+      "listProductResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "product_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "fulfilment_product_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_libraries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "summary": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayEditorResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "float"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "interest": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListEditorResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float"
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "interest": {
+              "type": "string",
+              "nullable": true
+            },
+            "display_order": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "short_bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListTeamMemberResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "short_bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "display_order": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayLibraryResponse": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "fitnote_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "fitnote_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "get_well_soon": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "more_information_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "next_steps_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "antihistamine_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "decongestant_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "fake_bundle": {
+                  "type": "boolean"
+                },
+                "general_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "gsl_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "id": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "in_stock": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "nsaid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "opioid_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "paracetamol_units": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "price_cents": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "price_currency": {
+                  "type": "string"
+                },
+                "product_type": {
+                  "type": "string"
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "why_this_bundle": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "symptoms": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "symptoms": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name",
+                "uuid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "professional_help_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "professional_help_content": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string",
+                "nullable": true
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at",
+              "created_at"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "reviewed_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string"
+          },
+          "summary_content": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "video_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_link": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "content_type",
+          "uuid"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListLibraryResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "summary_content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid",
+            "summary_content"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayListLibraryAlphabetizedResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "title": {
+              "type": "string"
+            },
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "content_type": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid",
+            "title",
+            "items",
+            "content_type",
+            "url"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "gatewayListProductCategoryResponse": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "gateWwayProductResponse": {
+        "type": "object",
+        "properties": {
+          "antihistamine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "category": {
+            "type": "string"
+          },
+          "decongestant_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "dosage_form": {
+            "type": "string"
+          },
+          "fake_bundle": {
+            "type": "boolean"
+          },
+          "general_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "gsl_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "id": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "in_stock": {
+            "type": "boolean"
+          },
+          "marketing_active": {
+            "type": "boolean"
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "meta_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "nsaid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "opioid_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "paracetamol_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "price_cents": {
+            "type": "number",
+            "format": "float"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "product_type": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail": {
+            "type": "string",
+            "nullable": true
+          },
+          "pseudoephedrine_units": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "in_stock": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "price_cents": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "price_currency": {
+                  "type": "string"
+                },
+                "short_description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "summary": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "symptoms": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "required": [
+                "name",
+                "uuid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "symptoms": {
+            "type": "string",
+            "nullable": true
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "name",
+          "uuid"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListProductResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "antihistamine_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "category": {
+              "type": "string"
+            },
+            "decongestant_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "dosage_form": {
+              "type": "string"
+            },
+            "fake_bundle": {
+              "type": "boolean"
+            },
+            "general_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "gsl_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "id": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "in_stock": {
+              "type": "boolean"
+            },
+            "is_popular": {
+              "type": "boolean"
+            },
+            "marketing_active": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "nsaid_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "opioid_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "paracetamol_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "price_cents": {
+              "type": "number",
+              "format": "float"
+            },
+            "price_currency": {
+              "type": "string"
+            },
+            "product_type": {
+              "type": "string"
+            },
+            "thumbnail": {
+              "type": "string",
+              "nullable": true
+            },
+            "pseudoephedrine_units": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "name",
+            "uuid"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "teamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string",
+                "nullable": true
+              },
+              "bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "short_bio": {
+                "type": "string",
+                "nullable": true
+              },
+              "is_active": {
+                "type": "boolean"
+              },
+              "display_order": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listTeamMembersBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "name",
+              "title",
+              "created",
+              "display_order",
+              "is_active"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "postTeamMemberBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "short_bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "listTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "short_bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_active": {
+                      "type": "boolean"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
         "additionalProperties": false
       }
     },
