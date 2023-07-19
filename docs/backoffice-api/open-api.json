@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.16.6"
+    "version": "2.17.2"
   },
   "servers": [
     {
@@ -4675,6 +4675,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "linkedin_url": {
+                "type": "string",
+                "nullable": true
+              },
               "display_order": {
                 "type": "number",
                 "format": "float",
@@ -4780,6 +4784,10 @@
             "type": "string",
             "nullable": true
           },
+          "linkedin_url": {
+            "type": "string",
+            "nullable": true
+          },
           "display_order": {
             "type": "number",
             "format": "float",
@@ -4847,6 +4855,10 @@
                       "type": "string"
                     },
                     "interest": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linkedin_url": {
                       "type": "string",
                       "nullable": true
                     },
@@ -6382,6 +6394,10 @@
             "type": "number",
             "format": "float",
             "nullable": true
+          },
+          "linkedin_url": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -6430,6 +6446,10 @@
               "type": "number",
               "format": "float",
               "nullable": true
+            },
+            "linkedin_url": {
+              "type": "string",
+              "nullable": true
             }
           },
           "required": [
@@ -6476,6 +6496,10 @@
           "display_order": {
             "type": "number",
             "format": "float",
+            "nullable": true
+          },
+          "linkedin_url": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -6524,6 +6548,10 @@
             "display_order": {
               "type": "number",
               "format": "float",
+              "nullable": true
+            },
+            "linkedin_url": {
+              "type": "string",
               "nullable": true
             }
           },
@@ -6574,6 +6602,10 @@
               "display_order": {
                 "type": "number",
                 "format": "float",
+                "nullable": true
+              },
+              "linkedin_url": {
+                "type": "string",
                 "nullable": true
               }
             },
@@ -6779,6 +6811,10 @@
               "display_order": {
                 "type": "number",
                 "format": "float",
+                "nullable": true
+              },
+              "linkedin_url": {
+                "type": "string",
                 "nullable": true
               }
             },
@@ -7212,6 +7248,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "linkedin_url": {
+                "type": "string",
+                "nullable": true
+              },
               "is_active": {
                 "type": "boolean"
               },
@@ -7328,6 +7368,10 @@
             "type": "number",
             "format": "float",
             "nullable": true
+          },
+          "linkedin_url": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -7391,6 +7435,10 @@
                       "type": "string"
                     },
                     "short_bio": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linkedin_url": {
                       "type": "string",
                       "nullable": true
                     },
