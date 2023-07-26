@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.17.2"
+    "version": "2.17.12"
   },
   "servers": [
     {
@@ -5795,6 +5795,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "why_this_bundle": {
+                "type": "string",
+                "nullable": true
+              },
               "bundle_products": {
                 "type": "array",
                 "items": {
@@ -6200,6 +6204,10 @@
             "nullable": true
           },
           "list_of_symptom": {
+            "type": "string",
+            "nullable": true
+          },
+          "why_this_bundle": {
             "type": "string",
             "nullable": true
           },
