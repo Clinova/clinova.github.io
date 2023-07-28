@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.19.2"
+    "version": "2.20.1"
   },
   "servers": [
     {
@@ -7210,8 +7210,18 @@
                       "symptoms": {
                         "type": "string",
                         "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "uuid": {
+                        "type": "string"
                       }
                     },
+                    "required": [
+                      "uuid"
+                    ],
                     "additionalProperties": false
                   }
                 },
