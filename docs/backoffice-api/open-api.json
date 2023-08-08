@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.26.0"
+    "version": "2.26.1"
   },
   "servers": [
     {
@@ -609,7 +609,7 @@
         }
       }
     },
-    "/v1/_libraries": {
+    "/v1/libraries/list": {
       "post": {
         "summary": "List and filter all libraries",
         "tags": [
@@ -1139,7 +1139,7 @@
         }
       }
     },
-    "/v1/_users": {
+    "/v1/users/list": {
       "post": {
         "summary": "List and filter all users",
         "tags": [
@@ -1721,7 +1721,7 @@
         }
       }
     },
-    "/v1/_editors": {
+    "/v1/editors/list": {
       "post": {
         "summary": "List and filter all editors",
         "tags": [
@@ -2003,7 +2003,7 @@
         }
       }
     },
-    "/v1/_activity_logs": {
+    "/v1/activity_logs/list": {
       "post": {
         "summary": "List and filter all activity logs",
         "tags": [
@@ -2215,7 +2215,7 @@
         }
       }
     },
-    "/v1/_categories": {
+    "/v1/categories/list": {
       "post": {
         "summary": "List and filter all categories",
         "tags": [
@@ -2499,7 +2499,7 @@
         }
       }
     },
-    "/v1/_settings/groups": {
+    "/v1/settings/groups": {
       "get": {
         "summary": "List all setting groups",
         "tags": [
@@ -2717,7 +2717,7 @@
         }
       }
     },
-    "/v1/_settings": {
+    "/v1/settings/list": {
       "post": {
         "summary": "List and filter all settings",
         "tags": [
@@ -3215,7 +3215,7 @@
         }
       }
     },
-    "/v1/_products": {
+    "/v1/products/list": {
       "post": {
         "summary": "List and filter all products",
         "tags": [
@@ -4103,7 +4103,7 @@
         }
       }
     },
-    "/v1/_team_members": {
+    "/v1/team_members/list": {
       "post": {
         "summary": "List and filter all team members",
         "tags": [
@@ -4542,7 +4542,7 @@
         }
       }
     },
-    "/v1/_tips": {
+    "/v1/tips/list": {
       "post": {
         "summary": "List and filter all tips",
         "tags": [
@@ -5081,7 +5081,7 @@
         }
       }
     },
-    "/v1/_customers": {
+    "/v1/customers/list": {
       "post": {
         "summary": "List and filter all customers",
         "tags": [
@@ -5358,7 +5358,7 @@
         }
       }
     },
-    "/v1/_orders": {
+    "/v1/orders/list": {
       "post": {
         "summary": "List and filter all orders",
         "tags": [
