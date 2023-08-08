@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.27.0"
+    "version": "2.29.1"
   },
   "servers": [
     {
@@ -176,6 +176,48 @@
         "tags": [
           "Me"
         ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/meResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update me",
+        "tags": [
+          "Me"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postMeBody"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "content": {
@@ -5933,14 +5975,22 @@
               "name": {
                 "type": "string"
               },
+              "email": {
+                "type": "string"
+              },
               "photo": {
                 "type": "string",
                 "nullable": true
+              },
+              "updated_at": {
+                "type": "string"
               }
             },
             "required": [
               "id",
-              "role"
+              "role",
+              "email",
+              "updated_at"
             ],
             "additionalProperties": false
           },
@@ -5951,6 +6001,22 @@
         "required": [
           "success",
           "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "postMeBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
         ],
         "additionalProperties": false
       },
