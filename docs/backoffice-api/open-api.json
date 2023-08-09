@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.29.1"
+    "version": "2.29.2"
   },
   "servers": [
     {
@@ -6417,6 +6417,65 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "relates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "summary_content": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": [
+                        "gb",
+                        "us"
+                      ]
+                    },
+                    "content_type": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "reviewed_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "linked_product_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "related_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -6625,6 +6684,13 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          "related_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         },
         "required": [
@@ -6715,6 +6781,12 @@
                       "nullable": true
                     },
                     "linked_product_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "related_ids": {
                       "type": "array",
                       "items": {
                         "type": "string"
@@ -9125,6 +9197,39 @@
               "additionalProperties": false
             }
           },
+          "relates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "summary": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "summary_content": {
+                  "type": "string"
+                },
+                "content_type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid",
+                "summary_content",
+                "content_type"
+              ],
+              "additionalProperties": false
+            }
+          },
           "professional_help_title": {
             "type": "string",
             "nullable": true
@@ -9239,11 +9344,15 @@
             },
             "summary_content": {
               "type": "string"
+            },
+            "content_type": {
+              "type": "string"
             }
           },
           "required": [
             "uuid",
-            "summary_content"
+            "summary_content",
+            "content_type"
           ],
           "additionalProperties": false
         }
