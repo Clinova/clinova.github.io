@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.29.2"
+    "version": "2.30.5"
   },
   "servers": [
     {
@@ -4029,7 +4029,8 @@
                 "title",
                 "created",
                 "display_order",
-                "is_active"
+                "is_active",
+                "is_editor"
               ],
               "default": "updated"
             },
@@ -4049,6 +4050,14 @@
             "name": "search_name",
             "schema": {
               "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "is_editor",
+            "schema": {
+              "type": "boolean"
             },
             "required": false
           },
@@ -4243,7 +4252,8 @@
                 "title",
                 "created",
                 "display_order",
-                "is_active"
+                "is_active",
+                "is_editor"
               ],
               "default": "updated"
             },
@@ -4263,6 +4273,14 @@
             "name": "search_name",
             "schema": {
               "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "is_editor",
+            "schema": {
+              "type": "boolean"
             },
             "required": false
           },
@@ -6308,8 +6326,7 @@
                 ]
               },
               "reviewed_by": {
-                "type": "number",
-                "format": "float",
+                "type": "string",
                 "nullable": true
               },
               "reviewed_at": {
@@ -6320,13 +6337,11 @@
                 "type": "boolean"
               },
               "reviewer_id": {
-                "type": "number",
-                "format": "float",
+                "type": "string",
                 "nullable": true
               },
               "author_id": {
-                "type": "number",
-                "format": "float",
+                "type": "string",
                 "nullable": true
               },
               "linked_products": {
@@ -6616,10 +6631,12 @@
             "nullable": true
           },
           "video_title": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "video_link": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "content_type": {
             "type": "number",
@@ -6660,13 +6677,11 @@
             ]
           },
           "reviewer_id": {
-            "type": "number",
-            "format": "float",
+            "type": "string",
             "nullable": true
           },
           "reviewed_by": {
-            "type": "number",
-            "format": "float",
+            "type": "string",
             "nullable": true
           },
           "reviewed_at": {
@@ -6674,8 +6689,7 @@
             "nullable": true
           },
           "author_id": {
-            "type": "number",
-            "format": "float",
+            "type": "string",
             "nullable": true
           },
           "linked_product_ids": {
@@ -9220,6 +9234,14 @@
                 },
                 "content_type": {
                   "type": "string"
+                },
+                "video_link": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "video_title": {
+                  "type": "string",
+                  "nullable": true
                 }
               },
               "required": [
@@ -9859,6 +9881,9 @@
               "is_active": {
                 "type": "boolean"
               },
+              "is_editor": {
+                "type": "boolean"
+              },
               "display_order": {
                 "type": "number",
                 "format": "float",
@@ -9914,7 +9939,8 @@
               "title",
               "created",
               "display_order",
-              "is_active"
+              "is_active",
+              "is_editor"
             ],
             "default": "updated"
           },
@@ -9927,6 +9953,9 @@
           },
           "search_name": {
             "type": "string"
+          },
+          "is_editor": {
+            "type": "boolean"
           },
           "created_before": {
             "type": "string",
@@ -9966,6 +9995,9 @@
             "nullable": true
           },
           "is_active": {
+            "type": "boolean"
+          },
+          "is_editor": {
             "type": "boolean"
           },
           "display_order": {
@@ -10047,6 +10079,9 @@
                       "nullable": true
                     },
                     "is_active": {
+                      "type": "boolean"
+                    },
+                    "is_editor": {
                       "type": "boolean"
                     },
                     "display_order": {
