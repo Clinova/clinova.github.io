@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.31.1"
+    "version": "2.33.0"
   },
   "servers": [
     {
@@ -352,6 +352,14 @@
           {
             "in": "query",
             "name": "search_user",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "content_type",
             "schema": {
               "type": "string"
             },
@@ -6114,7 +6122,8 @@
                 "type": "string"
               },
               "created_by": {
-                "type": "string"
+                "type": "string",
+                "nullable": true
               },
               "created_at": {
                 "type": "string"
@@ -6125,7 +6134,6 @@
               "upload_name",
               "content_type",
               "file_url",
-              "created_by",
               "created_at"
             ],
             "additionalProperties": false
@@ -6187,7 +6195,8 @@
                       "type": "string"
                     },
                     "created_by": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     },
                     "created_at": {
                       "type": "string"
@@ -6198,7 +6207,6 @@
                     "upload_name",
                     "content_type",
                     "file_url",
-                    "created_by",
                     "created_at"
                   ],
                   "additionalProperties": false
@@ -6280,6 +6288,10 @@
                 "nullable": true
               },
               "video_link": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_poster": {
                 "type": "string",
                 "nullable": true
               },
@@ -6635,6 +6647,10 @@
             "nullable": true
           },
           "video_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_poster": {
             "type": "string",
             "nullable": true
           },
@@ -8320,6 +8336,10 @@
               "video_title": {
                 "type": "string",
                 "nullable": true
+              },
+              "video_poster": {
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -8649,6 +8669,10 @@
             "nullable": true
           },
           "video_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_poster": {
             "type": "string",
             "nullable": true
           },
@@ -9258,6 +9282,10 @@
                 "video_title": {
                   "type": "string",
                   "nullable": true
+                },
+                "video_poster": {
+                  "type": "string",
+                  "nullable": true
                 }
               },
               "required": [
@@ -9352,6 +9380,10 @@
             "nullable": true
           },
           "video_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_poster": {
             "type": "string",
             "nullable": true
           }
@@ -9618,6 +9650,10 @@
             "nullable": true
           },
           "video_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "video_poster": {
             "type": "string",
             "nullable": true
           }
