@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.34.0"
+    "version": "2.34.2"
   },
   "servers": [
     {
@@ -6248,40 +6248,200 @@
               "summary": {
                 "type": "string"
               },
+              "summary_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
               "summary_content": {
                 "type": "string"
+              },
+              "summary_content_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
               },
               "next_steps_title": {
                 "type": "string",
                 "nullable": true
               },
+              "next_steps_title_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
               "next_steps_content": {
                 "type": "string",
                 "nullable": true
+              },
+              "next_steps_content_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
               },
               "professional_help_title": {
                 "type": "string",
                 "nullable": true
               },
+              "professional_help_title_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
               "professional_help_content": {
                 "type": "string",
                 "nullable": true
+              },
+              "professional_help_content_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
               },
               "fitnote_title": {
                 "type": "string",
                 "nullable": true
               },
+              "fitnote_title_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
               "fitnote_content": {
                 "type": "string",
                 "nullable": true
+              },
+              "fitnote_content_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
               },
               "more_information_title": {
                 "type": "string",
                 "nullable": true
               },
+              "more_information_title_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
               "more_information_content": {
                 "type": "string",
                 "nullable": true
+              },
+              "more_information_content_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "display_order": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  },
+                  "additionalProperties": false
+                }
               },
               "video_title": {
                 "type": "string",
@@ -6606,41 +6766,201 @@
           "summary": {
             "type": "string"
           },
+          "summary_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "summary_content": {
             "type": "string",
             "nullable": true
+          },
+          "summary_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "next_steps_title": {
             "type": "string",
             "nullable": true
           },
+          "next_steps_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "next_steps_content": {
             "type": "string",
             "nullable": true
+          },
+          "next_steps_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "professional_help_title": {
             "type": "string",
             "nullable": true
           },
+          "professional_help_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "professional_help_content": {
             "type": "string",
             "nullable": true
+          },
+          "professional_help_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "fitnote_title": {
             "type": "string",
             "nullable": true
           },
+          "fitnote_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "fitnote_content": {
             "type": "string",
             "nullable": true
+          },
+          "fitnote_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "more_information_title": {
             "type": "string",
             "nullable": true
           },
+          "more_information_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "more_information_content": {
             "type": "string",
             "nullable": true
+          },
+          "more_information_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "number",
+                  "format": "float"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "video_title": {
             "type": "string",
@@ -9101,9 +9421,41 @@
             "type": "string",
             "nullable": true
           },
+          "fitnote_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "fitnote_content": {
             "type": "string",
             "nullable": true
+          },
+          "fitnote_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "get_well_soon": {
             "type": "boolean"
@@ -9128,17 +9480,81 @@
             "type": "string",
             "nullable": true
           },
+          "more_information_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "more_information_content": {
             "type": "string",
             "nullable": true
+          },
+          "more_information_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "next_steps_title": {
             "type": "string",
             "nullable": true
           },
+          "next_steps_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "next_steps_content": {
             "type": "string",
             "nullable": true
+          },
+          "next_steps_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "products": {
             "type": "array",
@@ -9300,9 +9716,41 @@
             "type": "string",
             "nullable": true
           },
+          "professional_help_title_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "professional_help_content": {
             "type": "string",
             "nullable": true
+          },
+          "professional_help_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "reviewer": {
             "type": "object",
@@ -9362,8 +9810,40 @@
           "summary": {
             "type": "string"
           },
+          "summary_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "summary_content": {
             "type": "string"
+          },
+          "summary_content_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "updated_at": {
             "type": "string"
