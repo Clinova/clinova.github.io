@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.35.0"
+    "version": "2.36.0"
   },
   "servers": [
     {
@@ -10259,6 +10259,57 @@
             "thumbnail": {
               "type": "string",
               "nullable": true
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "in_stock": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "price_cents": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "price_currency": {
+                    "type": "string"
+                  },
+                  "short_description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "summary": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "symptoms": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "uuid": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "name",
+                  "uuid"
+                ],
+                "additionalProperties": false
+              }
             },
             "pseudoephedrine_units": {
               "type": "number",
