@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.34.2"
+    "version": "2.35.0"
   },
   "servers": [
     {
@@ -9969,6 +9969,24 @@
           "category": {
             "type": "string"
           },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "decongestant_units": {
             "type": "number",
             "format": "float",
@@ -10156,6 +10174,24 @@
             },
             "category": {
               "type": "string"
+            },
+            "categories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
             },
             "decongestant_units": {
               "type": "number",
