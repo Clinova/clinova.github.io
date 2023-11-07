@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.39.0"
+    "version": "2.40.0"
   },
   "servers": [
     {
@@ -10726,23 +10726,34 @@
       "postFeedbackBody": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "message_id": {
-            "type": "string",
-            "nullable": true
-          },
-          "rate": {
-            "type": "number",
-            "format": "float"
-          },
-          "suggestion": {
-            "type": "string",
-            "nullable": true
+          "feedback": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "nullable": true
+              },
+              "message_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "rate": {
+                "type": "number",
+                "format": "float",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "suggestion": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
           }
         },
+        "required": [
+          "feedback"
+        ],
         "additionalProperties": false
       },
       "feedbackResponse": {
