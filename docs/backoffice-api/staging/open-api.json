@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.38.0"
+    "version": "2.39.0"
   },
   "servers": [
     {
@@ -3983,6 +3983,50 @@
         }
       }
     },
+    "/v1/gateway/feedbacks": {
+      "post": {
+        "summary": "Create a feedback",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postFeedbackBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/feedbackResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/team_members": {
       "get": {
         "summary": "List and filter all team members",
@@ -5689,6 +5733,219 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/orderResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/feedbacks": {
+      "get": {
+        "summary": "List and filter all feedbacks",
+        "tags": [
+          "Feedback"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "created",
+                "rate"
+              ],
+              "default": "created"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_keyword",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listFeedbackResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/feedbacks/list": {
+      "post": {
+        "summary": "List and filter all feedbacks",
+        "tags": [
+          "Feedback"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listFeedbacksBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listFeedbackResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/feedbacks/{id}": {
+      "get": {
+        "summary": "Get feedback by id",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/feedbackResponse"
                 }
               }
             }
@@ -10466,6 +10723,80 @@
         ],
         "additionalProperties": false
       },
+      "postFeedbackBody": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "message_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "rate": {
+            "type": "number",
+            "format": "float"
+          },
+          "suggestion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "feedbackResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "suggestion": {
+                "type": "string",
+                "nullable": true
+              },
+              "message": {
+                "type": "string",
+                "nullable": true
+              },
+              "message_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "rate": {
+                "type": "number",
+                "format": "float"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
       "teamMemberResponse": {
         "type": "object",
         "properties": {
@@ -11826,6 +12157,150 @@
                     "total_price_cents",
                     "fulfilment_status",
                     "payment_status",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listFeedbacksBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "created",
+              "rate"
+            ],
+            "default": "created"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_keyword": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "listFeedbackResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "suggestion": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "rate": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
                     "created_at",
                     "updated_at"
                   ],
