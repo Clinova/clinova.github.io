@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.42.3"
+    "version": "2.42.5"
   },
   "servers": [
     {
@@ -6470,7 +6470,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/postinfluencerBody"
+                "$ref": "#/components/schemas/postInfluencerBody"
               }
             }
           }
@@ -9117,6 +9117,22 @@
                 "type": "number",
                 "format": "float"
               },
+              "type": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "otc",
+                      "pmed"
+                    ],
+                    "x-required": true
+                  }
+                ]
+              },
               "price_cents": {
                 "type": "number",
                 "format": "float"
@@ -9131,6 +9147,22 @@
               "fulfilment_product_id": {
                 "type": "string",
                 "nullable": true
+              },
+              "fulfilment_provider": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "daylewis",
+                      "theindependentpharmacy"
+                    ],
+                    "x-required": true
+                  }
+                ]
               },
               "linked_libraries": {
                 "type": "array",
@@ -9588,6 +9620,22 @@
               "format": "uuid"
             }
           },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "otc",
+                  "pmed"
+                ],
+                "x-required": true
+              }
+            ]
+          },
           "product_type": {
             "type": "number",
             "format": "float",
@@ -9608,6 +9656,22 @@
           "fulfilment_product_id": {
             "type": "string",
             "nullable": true
+          },
+          "fulfilment_provider": {
+            "anyOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "daylewis",
+                  "theindependentpharmacy"
+                ],
+                "x-required": true
+              }
+            ]
           },
           "summary": {
             "type": "string",
@@ -10863,6 +10927,22 @@
           "product_type": {
             "type": "string"
           },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "otc",
+                  "pmed"
+                ],
+                "x-required": true
+              }
+            ]
+          },
           "summary": {
             "type": "string",
             "nullable": true
@@ -11047,6 +11127,22 @@
             },
             "product_type": {
               "type": "string"
+            },
+            "type": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "otc",
+                    "pmed"
+                  ],
+                  "x-required": true
+                }
+              ]
             },
             "thumbnail": {
               "type": "string",
