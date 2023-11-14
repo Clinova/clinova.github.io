@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.42.5"
+    "version": "2.44.0"
   },
   "servers": [
     {
@@ -9484,6 +9484,14 @@
               "video_poster": {
                 "type": "string",
                 "nullable": true
+              },
+              "consultation_type": {
+                "type": "string",
+                "nullable": true
+              },
+              "consultation_type_id": {
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -9859,6 +9867,14 @@
               "format": "uuid"
             },
             "default": []
+          },
+          "consultation_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "consultation_type_id": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -11026,7 +11042,8 @@
           "video_poster": {
             "type": "string",
             "nullable": true
-          }
+          },
+          "consultation": {}
         },
         "required": [
           "name",
