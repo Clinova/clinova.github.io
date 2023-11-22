@@ -3,7 +3,7 @@
   "info": {
     "title": "API Heathwords",
     "description": "API Heathwords",
-    "version": "2.46.1"
+    "version": "2.48.0"
   },
   "servers": [
     {
@@ -8534,6 +8534,10 @@
                   "type": "string",
                   "format": "uuid"
                 },
+                "user_name": {
+                  "type": "string",
+                  "nullable": true
+                },
                 "action": {
                   "type": "string"
                 },
@@ -8544,10 +8548,9 @@
                   "type": "string",
                   "format": "uuid"
                 },
-                "payload": {
-                  "type": "object",
-                  "properties": {},
-                  "additionalProperties": false
+                "asset_title": {
+                  "type": "string",
+                  "nullable": true
                 },
                 "created_at": {
                   "type": "string"
@@ -8559,7 +8562,6 @@
                 "action",
                 "asset_type",
                 "asset_id",
-                "payload",
                 "created_at"
               ],
               "additionalProperties": false
