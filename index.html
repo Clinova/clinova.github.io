@@ -1,56 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docs</title>
+    <style>
+      #toc_container {
+        background: #f9f9f9 none repeat scroll 0 0;
+        border: 1px solid #aaa;
+        display: table;
+        font-size: 95%;
+        margin-bottom: 1em;
+        padding: 20px;
+        width: auto;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv='cache-control' content='no-cache'> 
-  <meta http-equiv='expires' content='0'> 
-  <meta http-equiv='pragma' content='no-cache'>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Docs</title>
-  <style>
-    #toc_container {
-      background: #f9f9f9 none repeat scroll 0 0;
-      border: 1px solid #aaa;
-      display: table;
-      font-size: 95%;
-      margin-bottom: 1em;
-      padding: 20px;
-      width: auto;
-    }
+      .toc_title {
+        font-weight: 700;
+        text-align: center;
+      }
 
-    .toc_title {
-      font-weight: 700;
-      text-align: center;
-    }
+      #toc_container li,
+      #toc_container ul,
+      #toc_container ul li {
+        list-style: outside none none !important;
+      }
+    </style>
+  </head>
 
-    #toc_container li,
-    #toc_container ul,
-    #toc_container ul li {
-      list-style: outside none none !important;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="toc_container">
-    <p class="toc_title">Docs</p>
-    <ul class="toc_list">
-      <li><a href="#">Backoffice API</a>
-        <ul>
-          <li><a href="/docs/backoffice-api/staging">Staging</a></li>
-          <li><a href="/docs/backoffice-api">Production</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Auth API</a>
-        <ul>
-          <li><a href="/docs/auth-api/staging">Staging</a></li>
-          <li><a href="/docs/auth-api">Production</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</body>
-
+  <body>
+    <div id="toc_container">
+      <p class="toc_title">Docs</p>
+      <ul class="toc_list">
+        <li>
+          <a href="#">Backoffice API</a>
+          <ul>
+            <li><a href="/docs/backoffice-api/staging">Staging</a></li>
+            <li><a href="/docs/backoffice-api">Production</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
