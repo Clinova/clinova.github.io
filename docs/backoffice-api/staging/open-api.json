@@ -1,17 +1,17 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "API Heathwords",
-    "description": "API Heathwords",
-    "version": "2.48.0"
+    "title": "API Backoffice Heathwords",
+    "description": "API Backoffice Heathwords",
+    "version": "2.49.1"
   },
   "servers": [
     {
-      "url": "https://staging.api.caidr.co",
+      "url": "https://backoffice-api.stagcaptain.healthwords.ai",
       "description": "Staging"
     },
     {
-      "url": "https://api.caidr.co",
+      "url": "https://backoffice-api.prodcaptain.healthwords.ai",
       "description": "Production"
     }
   ],
@@ -3407,44 +3407,18 @@
         }
       }
     },
-    "/v1/gateway/editors": {
+    "/v1/gateway/influencers": {
       "get": {
-        "summary": "List all editors",
+        "summary": "List all influencers",
         "tags": [
           "Gateway"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "sort",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "updated",
-                "name",
-                "title",
-                "created",
-                "display_order"
-              ],
-              "default": "updated"
-            },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "search_name",
-            "schema": {
-              "type": "string"
-            },
-            "required": false
-          }
         ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gatewayListEditorResponse"
+                  "$ref": "#/components/schemas/gatewayListInfluencerResponse"
                 }
               }
             }
@@ -3467,114 +3441,9 @@
         }
       }
     },
-    "/v1/gateway/editors/{id}": {
+    "/v1/gateway/influencers/{id}": {
       "get": {
-        "summary": "Get editor by id",
-        "tags": [
-          "Gateway"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "type": "number",
-              "format": "float"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/gatewayEditorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authenticated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/httpError"
-                },
-                "examples": {
-                  "error": {
-                    "$ref": "#/components/examples/unauthorizedError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/gateway/team_members": {
-      "get": {
-        "summary": "List all team members",
-        "tags": [
-          "Gateway"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "sort",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "updated",
-                "name",
-                "title",
-                "created",
-                "display_order"
-              ],
-              "default": "updated"
-            },
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "search_name",
-            "schema": {
-              "type": "string"
-            },
-            "required": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/gatewayListTeamMemberResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authenticated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/httpError"
-                },
-                "examples": {
-                  "error": {
-                    "$ref": "#/components/examples/unauthorizedError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/gateway/team_members/{id}": {
-      "get": {
-        "summary": "Get team member by id",
+        "summary": "Get influencer by id",
         "tags": [
           "Gateway"
         ],
@@ -3594,7 +3463,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gatewayTeamMemberResponse"
+                  "$ref": "#/components/schemas/gatewayInfluencerResponse"
                 }
               }
             }
@@ -3730,7 +3599,7 @@
         }
       }
     },
-    "/v1/gateway/product_categories": {
+    "/v1/gateway/products/categories": {
       "get": {
         "summary": "List all product categories",
         "tags": [
@@ -3821,6 +3690,111 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/gatewayProductResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members": {
+      "get": {
+        "summary": "List all team members",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "name",
+                "title",
+                "created",
+                "display_order"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayListTeamMemberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/team_members/{id}": {
+      "get": {
+        "summary": "Get team member by id",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayTeamMemberResponse"
                 }
               }
             }
@@ -3994,7 +3968,197 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/postFeedbackBody"
+                "$ref": "#/components/schemas/gatewayPostFeedbackBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayFeedbackResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/contact": {
+      "post": {
+        "summary": "Create contact form",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostContactBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayContactResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/contact/us": {
+      "post": {
+        "summary": "Create contact us form",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostContactUsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayContactResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/push_tokens": {
+      "post": {
+        "summary": "Create push token",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostPushTokenBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayPushTokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/subscribers": {
+      "post": {
+        "summary": "Create a subscriber",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostSubscriberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getwaySubscriberResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/transcripts/email": {
+      "post": {
+        "summary": "Send transcript email",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostTranscriptEmailBody"
               }
             }
           }
@@ -4004,7 +4168,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/feedbackResponse"
+                  "$ref": "#/components/schemas/gatewayTranscriptEmailResponse"
                 }
               }
             }
@@ -4027,18 +4191,28 @@
         }
       }
     },
-    "/v1/gateway/influencers": {
-      "get": {
-        "summary": "List all influencers",
+    "/v1/gateway/auth/change-password": {
+      "post": {
+        "summary": "Auth change password",
         "tags": [
           "Gateway"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostChangePasswordBody"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gatewayListInfluencerResponse"
+                  "$ref": "#/components/schemas/gatewayAuthResponse"
                 }
               }
             }
@@ -4061,29 +4235,86 @@
         }
       }
     },
-    "/v1/gateway/influencers/{id}": {
-      "get": {
-        "summary": "Get influencer by id",
+    "/v1/gateway/auth/forgot-password": {
+      "post": {
+        "summary": "Auth forgot password",
         "tags": [
           "Gateway"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "required": true
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostForgotPasswordBody"
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/gatewayInfluencerResponse"
+                  "$ref": "#/components/schemas/gatewayAuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/auth/reset-password": {
+      "post": {
+        "summary": "Auth reset password",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostResetPasswordBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayAuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/auth/change-email": {
+      "post": {
+        "summary": "Auth change email",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostChangeEmailBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayAuthResponse"
                 }
               }
             }
@@ -4099,6 +4330,35 @@
                   "error": {
                     "$ref": "#/components/examples/unauthorizedError"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/auth/verify-email": {
+      "post": {
+        "summary": "Auth verify email",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostVerifyEmailBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayAuthResponse"
                 }
               }
             }
@@ -6481,6 +6741,345 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/influencerResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscribers": {
+      "get": {
+        "summary": "List and filter all subscribers",
+        "tags": [
+          "Subscriber"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "first_name",
+                "last_name"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listSubscriberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscribers/list": {
+      "post": {
+        "summary": "List and filter all subscribers",
+        "tags": [
+          "Subscriber"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/listSubscribersBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listSubscriberResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscribers/_count": {
+      "get": {
+        "summary": "Count and filter all subscribers",
+        "tags": [
+          "Subscriber"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 10
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "first_name",
+                "last_name"
+              ],
+              "default": "updated"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12})*$"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "pattern": "\\d+",
+              "description": "MS since epoch",
+              "example": "1649155901169"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/countResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscribers/{id}": {
+      "get": {
+        "summary": "Get subscriber by id",
+        "tags": [
+          "Subscriber"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/subscriberResponse"
                 }
               }
             }
@@ -10041,21 +10640,28 @@
         ],
         "additionalProperties": false
       },
-      "gatewayEditorResponse": {
+      "gatewayInfluencerResponse": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "format": "float"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "image": {
+          "avatar_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "cover_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "profession": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
             "type": "string",
             "nullable": true
           },
@@ -10063,189 +10669,472 @@
             "type": "string",
             "nullable": true
           },
-          "updated_at": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "interest": {
+          "age": {
             "type": "string",
             "nullable": true
           },
-          "display_order": {
+          "popular_display_order": {
             "type": "number",
             "format": "float",
             "nullable": true
           },
-          "linkedin_url": {
+          "featured_display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "content": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "content_type": {
+                        "type": "string",
+                        "enum": [
+                          "markdown",
+                          "single_image",
+                          "multiple_images",
+                          "video",
+                          "single_product",
+                          "multiple_products"
+                        ]
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "value": {}
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "content_type"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "meta_title": {
             "type": "string",
             "nullable": true
+          },
+          "meta_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
           }
         },
         "required": [
           "id",
           "name",
-          "updated_at",
-          "created_at"
+          "updated_at"
         ],
         "additionalProperties": false
       },
-      "gatewayListEditorResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "format": "float"
-            },
-            "title": {
-              "type": "string",
-              "nullable": true
-            },
-            "name": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string",
-              "nullable": true
-            },
-            "bio": {
-              "type": "string",
-              "nullable": true
-            },
-            "updated_at": {
-              "type": "string"
-            },
-            "created_at": {
-              "type": "string"
-            },
-            "interest": {
-              "type": "string",
-              "nullable": true
-            },
-            "display_order": {
-              "type": "number",
-              "format": "float",
-              "nullable": true
-            },
-            "linkedin_url": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "updated_at",
-            "created_at"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "gatewayTeamMemberResponse": {
+      "gatewayListInfluencerResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
+          "list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "avatar_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "cover_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "profession": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "location": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "bio": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "age": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "popular_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "featured_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "enum": [
+                                "markdown",
+                                "single_image",
+                                "multiple_images",
+                                "video",
+                                "single_product",
+                                "multiple_products"
+                              ]
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "value": {}
+                              },
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "content_type"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "meta_title": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "meta_description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "updated_at"
+              ],
+              "additionalProperties": false
+            }
           },
-          "title": {
-            "type": "string",
-            "nullable": true
+          "popular": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "avatar_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "cover_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "profession": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "location": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "bio": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "age": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "popular_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "featured_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "enum": [
+                                "markdown",
+                                "single_image",
+                                "multiple_images",
+                                "video",
+                                "single_product",
+                                "multiple_products"
+                              ]
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "value": {}
+                              },
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "content_type"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "meta_title": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "meta_description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "updated_at"
+              ],
+              "additionalProperties": false
+            }
           },
-          "name": {
-            "type": "string"
-          },
-          "image": {
-            "type": "string",
-            "nullable": true
-          },
-          "bio": {
-            "type": "string",
-            "nullable": true
-          },
-          "updated_at": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "quote": {
-            "type": "string",
-            "nullable": true
-          },
-          "display_order": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "linkedin_url": {
-            "type": "string",
-            "nullable": true
+          "featured": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "avatar_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "cover_image": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "profession": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "location": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "bio": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "age": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "popular_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "featured_display_order": {
+                  "type": "number",
+                  "format": "float",
+                  "nullable": true
+                },
+                "sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "content_type": {
+                              "type": "string",
+                              "enum": [
+                                "markdown",
+                                "single_image",
+                                "multiple_images",
+                                "video",
+                                "single_product",
+                                "multiple_products"
+                              ]
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "value": {}
+                              },
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "content_type"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "meta_title": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "meta_description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "updated_at"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
-          "id",
-          "name",
-          "updated_at",
-          "created_at"
+          "list",
+          "popular",
+          "featured"
         ],
         "additionalProperties": false
-      },
-      "gatewayListTeamMemberResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "title": {
-              "type": "string",
-              "nullable": true
-            },
-            "name": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string",
-              "nullable": true
-            },
-            "bio": {
-              "type": "string",
-              "nullable": true
-            },
-            "updated_at": {
-              "type": "string"
-            },
-            "created_at": {
-              "type": "string"
-            },
-            "quote": {
-              "type": "string",
-              "nullable": true
-            },
-            "display_order": {
-              "type": "number",
-              "format": "float",
-              "nullable": true
-            },
-            "linkedin_url": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "updated_at",
-            "created_at"
-          ],
-          "additionalProperties": false
-        }
       },
       "gatewayLibraryResponse": {
         "type": "object",
@@ -10254,8 +11143,8 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
-                "format": "float"
+                "type": "string",
+                "format": "uuid"
               },
               "title": {
                 "type": "string",
@@ -10278,7 +11167,7 @@
               "created_at": {
                 "type": "string"
               },
-              "interest": {
+              "quote": {
                 "type": "string",
                 "nullable": true
               },
@@ -10646,8 +11535,8 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
-                "format": "float"
+                "type": "string",
+                "format": "uuid"
               },
               "title": {
                 "type": "string",
@@ -10670,7 +11559,7 @@
               "created_at": {
                 "type": "string"
               },
-              "interest": {
+              "quote": {
                 "type": "string",
                 "nullable": true
               },
@@ -11255,6 +12144,109 @@
           "additionalProperties": false
         }
       },
+      "gatewayTeamMemberResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string",
+            "nullable": true
+          },
+          "display_order": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "linkedin_url": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayListTeamMemberResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "nullable": true
+            },
+            "bio": {
+              "type": "string",
+              "nullable": true
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "quote": {
+              "type": "string",
+              "nullable": true
+            },
+            "display_order": {
+              "type": "number",
+              "format": "float",
+              "nullable": true
+            },
+            "linkedin_url": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false
+        }
+      },
       "gatewayTipResponse": {
         "type": "object",
         "properties": {
@@ -11393,7 +12385,7 @@
         ],
         "additionalProperties": false
       },
-      "postFeedbackBody": {
+      "gatewayPostFeedbackBody": {
         "type": "object",
         "properties": {
           "feedback": {
@@ -11426,165 +12418,30 @@
         ],
         "additionalProperties": false
       },
-      "feedbackResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "suggestion": {
-                "type": "string",
-                "nullable": true
-              },
-              "message": {
-                "type": "string",
-                "nullable": true
-              },
-              "message_id": {
-                "type": "string",
-                "nullable": true
-              },
-              "rate": {
-                "type": "number",
-                "format": "float"
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "updated_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "created_at",
-              "updated_at"
-            ],
-            "additionalProperties": false
-          },
-          "query_time": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "success",
-          "query_time"
-        ],
-        "additionalProperties": false
-      },
-      "gatewayInfluencerResponse": {
+      "gatewayFeedbackResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "suggestion": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "message_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "rate": {
+            "type": "number",
+            "format": "float"
+          },
+          "created_at": {
             "type": "string"
-          },
-          "avatar_image": {
-            "type": "string",
-            "nullable": true
-          },
-          "cover_image": {
-            "type": "string",
-            "nullable": true
-          },
-          "profession": {
-            "type": "string",
-            "nullable": true
-          },
-          "location": {
-            "type": "string",
-            "nullable": true
-          },
-          "bio": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "string",
-            "nullable": true
-          },
-          "popular_display_order": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "featured_display_order": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "sections": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "title": {
-                  "type": "string"
-                },
-                "color": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "content": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "content_type": {
-                        "type": "string",
-                        "enum": [
-                          "markdown",
-                          "single_image",
-                          "multiple_images",
-                          "video",
-                          "single_product",
-                          "multiple_products"
-                        ]
-                      },
-                      "data": {
-                        "type": "object",
-                        "properties": {
-                          "value": {}
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "content_type"
-                    ],
-                    "additionalProperties": false
-                  }
-                }
-              },
-              "required": [
-                "id",
-                "title"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "meta_title": {
-            "type": "string",
-            "nullable": true
-          },
-          "meta_description": {
-            "type": "string",
-            "nullable": true
           },
           "updated_at": {
             "type": "string"
@@ -11592,385 +12449,267 @@
         },
         "required": [
           "id",
-          "name",
+          "created_at",
           "updated_at"
         ],
         "additionalProperties": false
       },
-      "gatewayListInfluencerResponse": {
+      "gatewayPostContactBody": {
         "type": "object",
         "properties": {
-          "list": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "avatar_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "cover_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "profession": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "location": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "bio": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "age": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "popular_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "featured_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "sections": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "color": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "content": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "content_type": {
-                              "type": "string",
-                              "enum": [
-                                "markdown",
-                                "single_image",
-                                "multiple_images",
-                                "video",
-                                "single_product",
-                                "multiple_products"
-                              ]
-                            },
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "value": {}
-                              },
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "content_type"
-                          ],
-                          "additionalProperties": false
-                        }
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "title"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "meta_title": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "meta_description": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "updated_at": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "updated_at"
-              ],
-              "additionalProperties": false
-            }
+          "subject": {
+            "type": "string"
           },
-          "popular": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "avatar_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "cover_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "profession": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "location": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "bio": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "age": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "popular_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "featured_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "sections": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "color": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "content": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "content_type": {
-                              "type": "string",
-                              "enum": [
-                                "markdown",
-                                "single_image",
-                                "multiple_images",
-                                "video",
-                                "single_product",
-                                "multiple_products"
-                              ]
-                            },
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "value": {}
-                              },
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "content_type"
-                          ],
-                          "additionalProperties": false
-                        }
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "title"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "meta_title": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "meta_description": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "updated_at": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "updated_at"
-              ],
-              "additionalProperties": false
-            }
+          "body": {
+            "type": "string"
           },
-          "featured": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "avatar_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "cover_image": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "profession": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "location": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "bio": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "age": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "popular_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "featured_display_order": {
-                  "type": "number",
-                  "format": "float",
-                  "nullable": true
-                },
-                "sections": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "color": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "content": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "content_type": {
-                              "type": "string",
-                              "enum": [
-                                "markdown",
-                                "single_image",
-                                "multiple_images",
-                                "video",
-                                "single_product",
-                                "multiple_products"
-                              ]
-                            },
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "value": {}
-                              },
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "content_type"
-                          ],
-                          "additionalProperties": false
-                        }
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "title"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "meta_title": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "meta_description": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "updated_at": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "updated_at"
-              ],
-              "additionalProperties": false
-            }
+          "order_id": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
-          "list",
-          "popular",
-          "featured"
+          "subject",
+          "body"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostContactUsBody": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "first_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "subject",
+          "message",
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayContactResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostPushTokenBody": {
+        "type": "object",
+        "properties": {
+          "push_token": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "device_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "token",
+              "device_id"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "push_token"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPushTokenResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostSubscriberBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "first_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "page": {
+            "type": "string",
+            "nullable": true
+          },
+          "product": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "getwaySubscriberResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostTranscriptEmailBody": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "transcript_link": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "subject",
+          "transcript_link"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayTranscriptEmailResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostChangeEmailBody": {
+        "type": "object",
+        "properties": {
+          "new_email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "new_email"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostVerifyEmailBody": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostChangePasswordBody": {
+        "type": "object",
+        "properties": {
+          "current_password": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*(\\d|[@$!%*?&]))[A-Za-z\\d@$!%:*?&]{9,}$"
+          }
+        },
+        "required": [
+          "current_password",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostForgotPasswordBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayPostResetPasswordBody": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*(\\d|[@$!%*?&]))[A-Za-z\\d@$!%:*?&]{9,}$"
+          }
+        },
+        "required": [
+          "token",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayAuthResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
         ],
         "additionalProperties": false
       },
@@ -13360,6 +14099,58 @@
         ],
         "additionalProperties": false
       },
+      "feedbackResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "suggestion": {
+                "type": "string",
+                "nullable": true
+              },
+              "message": {
+                "type": "string",
+                "nullable": true
+              },
+              "message_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "rate": {
+                "type": "number",
+                "format": "float"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
       "listFeedbacksBody": {
         "type": "object",
         "properties": {
@@ -14012,6 +14803,219 @@
                   "required": [
                     "id",
                     "name",
+                    "updated_at"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "metaData": {
+                "example": null
+              }
+            },
+            "required": [
+              "total",
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "subscriberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "first_name": {
+                "type": "string",
+                "nullable": true
+              },
+              "last_name": {
+                "type": "string",
+                "nullable": true
+              },
+              "page": {
+                "type": "string",
+                "nullable": true
+              },
+              "product": {
+                "type": "string",
+                "nullable": true
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "updated_at"
+            ],
+            "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "listsubscribersBody": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 10
+          },
+          "page": {
+            "type": "number",
+            "format": "float",
+            "minimum": 1,
+            "default": 1
+          },
+          "order": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "DESC"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "first_name",
+              "last_name"
+            ],
+            "default": "updated"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "search_name": {
+            "type": "string"
+          },
+          "created_before": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          },
+          "created_after": {
+            "type": "string",
+            "pattern": "\\d+",
+            "description": "MS since epoch",
+            "example": "1649155901169"
+          }
+        },
+        "additionalProperties": false
+      },
+      "listSubscriberResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "total": {
+                "type": "number",
+                "format": "float"
+              },
+              "limit": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "pages": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "first_name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "last_name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "page": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "product": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "email",
                     "updated_at"
                   ],
                   "additionalProperties": false
