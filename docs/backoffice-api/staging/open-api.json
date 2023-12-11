@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.49.1"
+    "version": "2.51.0"
   },
   "servers": [
     {
@@ -10101,6 +10101,10 @@
               "leaflet_file_name": {
                 "type": "string",
                 "nullable": true
+              },
+              "indication_pharmacist": {
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -10490,6 +10494,10 @@
             "nullable": true
           },
           "leaflet_file_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "indication_pharmacist": {
             "type": "string",
             "nullable": true
           }
