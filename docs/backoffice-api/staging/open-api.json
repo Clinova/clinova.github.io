@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.51.1"
+    "version": "2.51.2"
   },
   "servers": [
     {
@@ -8054,6 +8054,10 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "cover_image": {
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -8432,6 +8436,10 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          "cover_image": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -11653,6 +11661,10 @@
             "nullable": true
           },
           "video_poster": {
+            "type": "string",
+            "nullable": true
+          },
+          "cover_image": {
             "type": "string",
             "nullable": true
           }
