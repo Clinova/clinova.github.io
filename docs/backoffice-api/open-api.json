@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.51.0"
+    "version": "2.51.1"
   },
   "servers": [
     {
@@ -9759,7 +9759,8 @@
                     "type": "string",
                     "enum": [
                       "daylewis",
-                      "theindependentpharmacy"
+                      "theindependentpharmacy",
+                      "healthwarehouse"
                     ],
                     "x-required": true
                   }
@@ -10288,7 +10289,8 @@
                 "type": "string",
                 "enum": [
                   "daylewis",
-                  "theindependentpharmacy"
+                  "theindependentpharmacy",
+                  "healthwarehouse"
                 ],
                 "x-required": true
               }
