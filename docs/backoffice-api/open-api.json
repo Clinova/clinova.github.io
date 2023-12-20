@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.52.0"
+    "version": "2.54.0"
   },
   "servers": [
     {
@@ -515,7 +515,8 @@
                 "summary",
                 "country",
                 "draft",
-                "content_type"
+                "content_type",
+                "video"
               ],
               "default": "updated"
             },
@@ -533,6 +534,14 @@
           {
             "in": "query",
             "name": "draft",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "has_video",
             "schema": {
               "type": "boolean"
             },
@@ -757,7 +766,8 @@
                 "summary",
                 "country",
                 "draft",
-                "content_type"
+                "content_type",
+                "video"
               ],
               "default": "updated"
             },
@@ -775,6 +785,14 @@
           {
             "in": "query",
             "name": "draft",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "has_video",
             "schema": {
               "type": "boolean"
             },
@@ -8046,6 +8064,10 @@
                       "items": {
                         "type": "string"
                       }
+                    },
+                    "video_link": {
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -8109,7 +8131,8 @@
               "summary",
               "country",
               "draft",
-              "content_type"
+              "content_type",
+              "video"
             ],
             "default": "updated"
           },
@@ -8121,6 +8144,9 @@
             }
           },
           "draft": {
+            "type": "boolean"
+          },
+          "has_video": {
             "type": "boolean"
           },
           "content_type": {
@@ -8540,6 +8566,10 @@
                       "items": {
                         "type": "string"
                       }
+                    },
+                    "video_link": {
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
