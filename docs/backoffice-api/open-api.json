@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.55.2"
+    "version": "2.57.1"
   },
   "servers": [
     {
@@ -3629,6 +3629,50 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/gatewayListProductCategoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/products/stock_subscribe": {
+      "post": {
+        "summary": "Create product stock subscriber",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostStockSubscriberBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayProductMessageResponse"
                 }
               }
             }
@@ -10204,6 +10248,10 @@
               "indication_pharmacist": {
                 "type": "string",
                 "nullable": true
+              },
+              "stock_issue_message": {
+                "type": "string",
+                "nullable": true
               }
             },
             "required": [
@@ -10598,6 +10646,10 @@
             "nullable": true
           },
           "indication_pharmacist": {
+            "type": "string",
+            "nullable": true
+          },
+          "stock_issue_message": {
             "type": "string",
             "nullable": true
           }
@@ -12009,6 +12061,10 @@
                 "in_stock": {
                   "type": "boolean"
                 },
+                "stock_issue_message": {
+                  "type": "string",
+                  "nullable": true
+                },
                 "name": {
                   "type": "string"
                 },
@@ -12069,6 +12125,10 @@
           },
           "consultation": {},
           "leaflet_file_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "stock_issue_message": {
             "type": "string",
             "nullable": true
           }
@@ -12211,6 +12271,10 @@
                   "in_stock": {
                     "type": "boolean"
                   },
+                  "stock_issue_message": {
+                    "type": "string",
+                    "nullable": true
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -12257,6 +12321,10 @@
             "uuid": {
               "type": "string",
               "format": "uuid"
+            },
+            "stock_issue_message": {
+              "type": "string",
+              "nullable": true
             }
           },
           "required": [
@@ -12265,6 +12333,53 @@
           ],
           "additionalProperties": false
         }
+      },
+      "gatewayPostStockSubscriberBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "first_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "page": {
+            "type": "string",
+            "nullable": true
+          },
+          "product": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayProductMessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
       },
       "gatewayTeamMemberResponse": {
         "type": "object",
@@ -12967,6 +13082,10 @@
                   "in_stock": {
                     "type": "boolean"
                   },
+                  "stock_issue_message": {
+                    "type": "string",
+                    "nullable": true
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -13013,6 +13132,10 @@
             "uuid": {
               "type": "string",
               "format": "uuid"
+            },
+            "stock_issue_message": {
+              "type": "string",
+              "nullable": true
             }
           },
           "required": [
