@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.57.1"
+    "version": "2.58.1"
   },
   "servers": [
     {
@@ -9880,6 +9880,10 @@
                 "type": "number",
                 "format": "float"
               },
+              "price_valid_until": {
+                "type": "string",
+                "nullable": true
+              },
               "price_currency": {
                 "type": "string"
               },
@@ -10415,6 +10419,10 @@
           "price_cents": {
             "type": "number",
             "format": "float"
+          },
+          "price_valid_until": {
+            "type": "string",
+            "nullable": true
           },
           "quantity": {
             "type": "number",
@@ -12015,6 +12023,10 @@
           },
           "price_currency": {
             "type": "string"
+          },
+          "price_valid_until": {
+            "type": "string",
+            "nullable": true
           },
           "product_type": {
             "type": "string"
