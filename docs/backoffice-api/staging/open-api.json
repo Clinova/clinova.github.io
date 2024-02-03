@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.59.1"
+    "version": "2.60.0"
   },
   "servers": [
     {
@@ -8435,7 +8435,6 @@
                 "enum": [
                   0,
                   1,
-                  2,
                   3,
                   4
                 ]
@@ -8966,7 +8965,6 @@
             "enum": [
               0,
               1,
-              2,
               3,
               4
             ]
