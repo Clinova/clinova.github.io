@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.60.0"
+    "version": "2.62.0"
   },
   "servers": [
     {
@@ -4674,6 +4674,66 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getwayUploadResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/gateway/proxy/tip": {
+      "get": {
+        "summary": "Get tip questionnaire",
+        "tags": [
+          "Gateway"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "condition_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "treatment_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "medical_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayTipQuestionnaireResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
                 }
               }
             }
@@ -10692,11 +10752,15 @@
                 "type": "string",
                 "nullable": true
               },
-              "consultation_type": {
+              "tip_treatment_id": {
                 "type": "string",
                 "nullable": true
               },
-              "consultation_type_id": {
+              "tip_condition_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "tip_medical_id": {
                 "type": "string",
                 "nullable": true
               },
@@ -10999,10 +11063,6 @@
             "format": "float",
             "nullable": true
           },
-          "nsaid": {
-            "type": "boolean",
-            "nullable": true
-          },
           "nsaid_units": {
             "type": "number",
             "format": "float",
@@ -11096,11 +11156,15 @@
             },
             "default": []
           },
-          "consultation_type": {
+          "tip_treatment_id": {
             "type": "string",
             "nullable": true
           },
-          "consultation_type_id": {
+          "tip_condition_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "tip_medical_id": {
             "type": "string",
             "nullable": true
           },
@@ -12754,6 +12818,18 @@
             "type": "string",
             "nullable": true
           },
+          "tip_condition_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "tip_treatment_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "tip_medical_id": {
+            "type": "string",
+            "nullable": true
+          },
           "stock_issue_message": {
             "type": "string",
             "nullable": true
@@ -13811,6 +13887,21 @@
           "signed_url",
           "file_url"
         ],
+        "additionalProperties": false
+      },
+      "gatewayTipQuestionnaireResponse": {
+        "type": "object",
+        "properties": {
+          "questionnaires": {
+            "type": "object",
+            "properties": {
+              "condition": {},
+              "treatment": {},
+              "medication": {}
+            },
+            "additionalProperties": false
+          }
+        },
         "additionalProperties": false
       },
       "teamMemberResponse": {
