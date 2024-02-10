@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.62.0"
+    "version": "2.63.0"
   },
   "servers": [
     {
@@ -4618,6 +4618,8 @@
                 "dosage_form",
                 "legal_category",
                 "feedback_emails",
+                "tip_consulation",
+                "investor_emails",
                 "removed"
               ]
             },
@@ -4719,6 +4721,50 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/gatewayTipQuestionnaireResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/investors": {
+      "post": {
+        "summary": "Create investor request form",
+        "tags": [
+          "Gateway"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gatewayPostInvestorBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gatewayInvestorResponse"
                 }
               }
             }
@@ -13902,6 +13948,44 @@
             "additionalProperties": false
           }
         },
+        "additionalProperties": false
+      },
+      "gatewayPostInvestorBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "number_of_shares": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "email",
+          "number_of_shares"
+        ],
+        "additionalProperties": false
+      },
+      "gatewayInvestorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
         "additionalProperties": false
       },
       "teamMemberResponse": {
