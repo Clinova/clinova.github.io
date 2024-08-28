@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.65.2"
+    "version": "2.66.0"
   },
   "servers": [
     {
@@ -6782,7 +6782,8 @@
                 "name",
                 "popular_display_order",
                 "year_of_birth",
-                "featured_display_order"
+                "featured_display_order",
+                "draft"
               ],
               "default": "updated"
             },
@@ -6996,7 +6997,8 @@
                 "name",
                 "popular_display_order",
                 "year_of_birth",
-                "featured_display_order"
+                "featured_display_order",
+                "draft"
               ],
               "default": "updated"
             },
@@ -8328,6 +8330,9 @@
               "summary": {
                 "type": "string"
               },
+              "slug": {
+                "type": "string"
+              },
               "summary_images": {
                 "type": "array",
                 "items": {
@@ -8607,6 +8612,9 @@
                     "name": {
                       "type": "string"
                     },
+                    "slug": {
+                      "type": "string"
+                    },
                     "draft": {
                       "type": "boolean"
                     },
@@ -8694,6 +8702,9 @@
                       "format": "uuid"
                     },
                     "summary": {
+                      "type": "string"
+                    },
+                    "slug": {
                       "type": "string"
                     },
                     "summary_content": {
@@ -8855,6 +8866,9 @@
             "default": false
           },
           "summary": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "summary_images": {
@@ -9139,6 +9153,7 @@
         },
         "required": [
           "summary",
+          "slug",
           "content_type",
           "country"
         ],
@@ -9195,6 +9210,9 @@
                       "format": "uuid"
                     },
                     "summary": {
+                      "type": "string"
+                    },
+                    "slug": {
                       "type": "string"
                     },
                     "summary_content": {
@@ -10403,6 +10421,9 @@
               "name": {
                 "type": "string"
               },
+              "slug": {
+                "type": "string"
+              },
               "draft": {
                 "type": "boolean"
               },
@@ -10709,6 +10730,9 @@
                     "name": {
                       "type": "string"
                     },
+                    "slug": {
+                      "type": "string"
+                    },
                     "draft": {
                       "type": "boolean"
                     },
@@ -10932,6 +10956,9 @@
             "type": "boolean"
           },
           "name": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "main_image": {
@@ -11234,6 +11261,7 @@
         "required": [
           "draft",
           "name",
+          "slug",
           "product_type",
           "price_cents",
           "country"
@@ -11278,6 +11306,9 @@
                       "format": "uuid"
                     },
                     "name": {
+                      "type": "string"
+                    },
+                    "slug": {
                       "type": "string"
                     },
                     "draft": {
@@ -12136,6 +12167,9 @@
             "format": "float",
             "nullable": true
           },
+          "slug": {
+            "type": "string"
+          },
           "marketing_active": {
             "type": "boolean"
           },
@@ -12266,6 +12300,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "nsaid_units": {
                   "type": "number",
                   "format": "float",
@@ -12333,6 +12370,7 @@
               },
               "required": [
                 "name",
+                "slug",
                 "uuid"
               ],
               "additionalProperties": false
@@ -12351,6 +12389,9 @@
                 "uuid": {
                   "type": "string",
                   "format": "uuid"
+                },
+                "slug": {
+                  "type": "string"
                 },
                 "summary": {
                   "type": "string",
@@ -12377,6 +12418,7 @@
               },
               "required": [
                 "uuid",
+                "slug",
                 "summary_content",
                 "content_type"
               ],
@@ -12522,6 +12564,9 @@
           "url": {
             "type": "string"
           },
+          "_url": {
+            "type": "string"
+          },
           "uuid": {
             "type": "string",
             "format": "uuid"
@@ -12545,6 +12590,7 @@
         },
         "required": [
           "content_type",
+          "slug",
           "uuid"
         ],
         "additionalProperties": false
@@ -12563,6 +12609,9 @@
               "type": "string",
               "format": "uuid"
             },
+            "slug": {
+              "type": "string"
+            },
             "summary": {
               "type": "string",
               "nullable": true
@@ -12576,6 +12625,7 @@
           },
           "required": [
             "uuid",
+            "slug",
             "summary_content",
             "content_type"
           ],
@@ -12596,6 +12646,9 @@
               "type": "string",
               "format": "uuid"
             },
+            "slug": {
+              "type": "string"
+            },
             "summary": {
               "type": "string",
               "nullable": true
@@ -12612,14 +12665,19 @@
             },
             "url": {
               "type": "string"
+            },
+            "_url": {
+              "type": "string"
             }
           },
           "required": [
             "uuid",
+            "slug",
             "title",
             "items",
             "content_type",
-            "url"
+            "url",
+            "_url"
           ],
           "additionalProperties": false
         }
@@ -12692,6 +12750,9 @@
             "type": "number",
             "format": "float",
             "nullable": true
+          },
+          "slug": {
+            "type": "string"
           },
           "images": {
             "type": "array",
@@ -12804,6 +12865,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "price_cents": {
                   "type": "number",
                   "format": "float"
@@ -12834,6 +12898,7 @@
               },
               "required": [
                 "name",
+                "slug",
                 "uuid"
               ],
               "additionalProperties": false
@@ -12882,6 +12947,7 @@
           }
         },
         "required": [
+          "slug",
           "name",
           "uuid"
         ],
@@ -12948,6 +13014,9 @@
               "type": "number",
               "format": "float",
               "nullable": true
+            },
+            "slug": {
+              "type": "string"
             },
             "in_stock": {
               "type": "boolean"
@@ -13026,6 +13095,9 @@
                   "name": {
                     "type": "string"
                   },
+                  "slug": {
+                    "type": "string"
+                  },
                   "price_cents": {
                     "type": "number",
                     "format": "float"
@@ -13056,6 +13128,7 @@
                 },
                 "required": [
                   "name",
+                  "slug",
                   "uuid"
                 ],
                 "additionalProperties": false
@@ -13076,6 +13149,7 @@
             }
           },
           "required": [
+            "slug",
             "name",
             "uuid"
           ],
@@ -13760,6 +13834,9 @@
               "format": "float",
               "nullable": true
             },
+            "slug": {
+              "type": "string"
+            },
             "in_stock": {
               "type": "boolean"
             },
@@ -13837,6 +13914,9 @@
                   "name": {
                     "type": "string"
                   },
+                  "slug": {
+                    "type": "string"
+                  },
                   "price_cents": {
                     "type": "number",
                     "format": "float"
@@ -13867,6 +13947,7 @@
                 },
                 "required": [
                   "name",
+                  "slug",
                   "uuid"
                 ],
                 "additionalProperties": false
@@ -13887,6 +13968,7 @@
             }
           },
           "required": [
+            "slug",
             "name",
             "uuid"
           ],
@@ -15755,7 +15837,8 @@
               "name",
               "year_of_birth",
               "popular_display_order",
-              "featured_display_order"
+              "featured_display_order",
+              "draft"
             ],
             "default": "updated"
           },
@@ -15765,6 +15848,9 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          "draft": {
+            "type": "boolean"
           },
           "search_name": {
             "type": "string"
