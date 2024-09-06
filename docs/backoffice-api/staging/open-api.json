@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.67.0"
+    "version": "2.67.2"
   },
   "servers": [
     {
@@ -6687,7 +6687,7 @@
       "get": {
         "summary": "Get feedback by id",
         "tags": [
-          "Customer"
+          "Feedback"
         ],
         "parameters": [
           {
@@ -6706,6 +6706,49 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/feedbackResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpError"
+                },
+                "examples": {
+                  "error": {
+                    "$ref": "#/components/examples/unauthorizedError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete feedback by id",
+        "tags": [
+          "Feedback"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteFeedbackResponse"
                 }
               }
             }
@@ -15497,6 +15540,25 @@
               "updated_at"
             ],
             "additionalProperties": false
+          },
+          "query_time": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "success",
+          "query_time"
+        ],
+        "additionalProperties": false
+      },
+      "deleteFeedbackResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "boolean"
           },
           "query_time": {
             "type": "integer"
