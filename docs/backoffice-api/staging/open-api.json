@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.69.0"
+    "version": "2.69.1"
   },
   "servers": [
     {
@@ -13603,6 +13603,13 @@
               "suggestion": {
                 "type": "string",
                 "nullable": true
+              },
+              "extra_fields": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false,
+                "nullable": true,
+                "default": {}
               }
             },
             "additionalProperties": false
@@ -13640,6 +13647,17 @@
           },
           "updated_at": {
             "type": "string"
+          },
+          "extra_fields": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false,
+            "nullable": true,
+            "default": {}
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -15620,6 +15638,17 @@
                 "type": "number",
                 "format": "float"
               },
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "extra_fields": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false,
+                "nullable": true,
+                "default": {}
+              },
               "created_at": {
                 "type": "string"
               },
@@ -15705,6 +15734,9 @@
           "search_keyword": {
             "type": "string"
           },
+          "user_id": {
+            "type": "string"
+          },
           "created_before": {
             "type": "string",
             "pattern": "\\d+",
@@ -15771,6 +15803,17 @@
                     "rate": {
                       "type": "number",
                       "format": "float"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "extra_fields": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "nullable": true,
+                      "default": {}
                     },
                     "created_at": {
                       "type": "string"
