@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.69.1"
+    "version": "2.70.0"
   },
   "servers": [
     {
@@ -8376,6 +8376,22 @@
               "slug": {
                 "type": "string"
               },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "default": []
+              },
               "summary_images": {
                 "type": "array",
                 "items": {
@@ -8747,6 +8763,22 @@
                     "summary": {
                       "type": "string"
                     },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "default": []
+                    },
                     "slug": {
                       "type": "string"
                     },
@@ -8907,6 +8939,13 @@
           "draft": {
             "type": "boolean",
             "default": false
+          },
+          "category_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
           "summary": {
             "type": "string"
@@ -9254,6 +9293,22 @@
                     },
                     "summary": {
                       "type": "string"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "default": []
                     },
                     "slug": {
                       "type": "string"
