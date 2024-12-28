@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.71.24"
+    "version": "2.71.26"
   },
   "servers": [
     {
@@ -8791,6 +8791,9 @@
                           },
                           "name": {
                             "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
                           }
                         },
                         "additionalProperties": false
@@ -9336,6 +9339,9 @@
                             "type": "string"
                           },
                           "name": {
+                            "type": "string"
+                          },
+                          "slug": {
                             "type": "string"
                           }
                         },
@@ -12800,6 +12806,28 @@
             "type": "number",
             "format": "float",
             "nullable": true
+          },
+          "featured_category": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "name"
+            ],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
@@ -12824,6 +12852,9 @@
               "format": "uuid"
             },
             "slug": {
+              "type": "string"
+            },
+            "url": {
               "type": "string"
             },
             "categories": {
@@ -12943,6 +12974,7 @@
           "required": [
             "uuid",
             "slug",
+            "url",
             "summary_content",
             "content_type"
           ],
