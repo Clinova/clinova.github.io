@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.72.2"
+    "version": "2.73.2"
   },
   "servers": [
     {
@@ -11624,6 +11624,9 @@
           "name": {
             "type": "string"
           },
+          "slug": {
+            "type": "string"
+          },
           "avatar_image": {
             "type": "string",
             "nullable": true
@@ -11730,6 +11733,7 @@
         "required": [
           "id",
           "name",
+          "slug",
           "updated_at"
         ],
         "additionalProperties": false
@@ -11903,6 +11907,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "avatar_image": {
                   "type": "string",
                   "nullable": true
@@ -12009,6 +12016,7 @@
               "required": [
                 "id",
                 "name",
+                "slug",
                 "updated_at"
               ],
               "additionalProperties": false
@@ -12025,6 +12033,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "avatar_image": {
                   "type": "string",
                   "nullable": true
@@ -12131,6 +12142,7 @@
               "required": [
                 "id",
                 "name",
+                "slug",
                 "updated_at"
               ],
               "additionalProperties": false
@@ -12147,6 +12159,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "avatar_image": {
                   "type": "string",
                   "nullable": true
@@ -12253,6 +12268,7 @@
               "required": [
                 "id",
                 "name",
+                "slug",
                 "updated_at"
               ],
               "additionalProperties": false
@@ -12281,6 +12297,9 @@
                 "nullable": true
               },
               "name": {
+                "type": "string"
+              },
+              "slug": {
                 "type": "string"
               },
               "image": {
@@ -12318,6 +12337,7 @@
             "required": [
               "id",
               "name",
+              "slug",
               "updated_at",
               "created_at"
             ],
@@ -12690,6 +12710,9 @@
               "name": {
                 "type": "string"
               },
+              "slug": {
+                "type": "string"
+              },
               "image": {
                 "type": "string",
                 "nullable": true
@@ -12725,6 +12748,7 @@
             "required": [
               "id",
               "name",
+              "slug",
               "updated_at",
               "created_at"
             ],
@@ -12916,6 +12940,9 @@
                 "name": {
                   "type": "string"
                 },
+                "slug": {
+                  "type": "string"
+                },
                 "image": {
                   "type": "string",
                   "nullable": true
@@ -12951,6 +12978,7 @@
               "required": [
                 "id",
                 "name",
+                "slug",
                 "updated_at",
                 "created_at"
               ],
@@ -13597,6 +13625,9 @@
           "name": {
             "type": "string"
           },
+          "slug": {
+            "type": "string"
+          },
           "image": {
             "type": "string",
             "nullable": true
@@ -13632,6 +13663,7 @@
         "required": [
           "id",
           "name",
+          "slug",
           "updated_at",
           "created_at"
         ],
@@ -13651,6 +13683,9 @@
               "nullable": true
             },
             "name": {
+              "type": "string"
+            },
+            "slug": {
               "type": "string"
             },
             "image": {
@@ -13688,6 +13723,7 @@
           "required": [
             "id",
             "name",
+            "slug",
             "updated_at",
             "created_at"
           ],
@@ -14496,6 +14532,9 @@
               "name": {
                 "type": "string"
               },
+              "slug": {
+                "type": "string"
+              },
               "photo": {
                 "type": "string",
                 "nullable": true
@@ -14530,6 +14569,7 @@
             "required": [
               "id",
               "name",
+              "slug",
               "updated_at"
             ],
             "additionalProperties": false
@@ -14615,6 +14655,9 @@
           "name": {
             "type": "string"
           },
+          "slug": {
+            "type": "string"
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -14648,7 +14691,8 @@
           }
         },
         "required": [
-          "name"
+          "name",
+          "slug"
         ],
         "additionalProperties": false
       },
@@ -14696,6 +14740,9 @@
                     "name": {
                       "type": "string"
                     },
+                    "slug": {
+                      "type": "string"
+                    },
                     "photo": {
                       "type": "string",
                       "nullable": true
@@ -14730,6 +14777,7 @@
                   "required": [
                     "id",
                     "name",
+                    "slug",
                     "updated_at"
                   ],
                   "additionalProperties": false
@@ -16117,6 +16165,9 @@
               "name": {
                 "type": "string"
               },
+              "slug": {
+                "type": "string"
+              },
               "avatar_image": {
                 "type": "string",
                 "nullable": true
@@ -16241,6 +16292,7 @@
             "required": [
               "id",
               "name",
+              "slug",
               "updated_at"
             ],
             "additionalProperties": false
@@ -16324,6 +16376,9 @@
         "type": "object",
         "properties": {
           "name": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "avatar_image": {
@@ -16447,7 +16502,8 @@
           }
         },
         "required": [
-          "name"
+          "name",
+          "slug"
         ],
         "additionalProperties": false
       },
@@ -16488,6 +16544,9 @@
                       "type": "string"
                     },
                     "name": {
+                      "type": "string"
+                    },
+                    "slug": {
                       "type": "string"
                     },
                     "avatar_image": {
@@ -16614,6 +16673,7 @@
                   "required": [
                     "id",
                     "name",
+                    "slug",
                     "updated_at"
                   ],
                   "additionalProperties": false
