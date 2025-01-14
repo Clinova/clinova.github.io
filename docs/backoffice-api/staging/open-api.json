@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.74.1"
+    "version": "2.74.2"
   },
   "servers": [
     {
@@ -8658,6 +8658,97 @@
                   "us"
                 ]
               },
+              "mapping_country_library": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "default": []
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "summary_content": {
+                    "type": "string"
+                  },
+                  "draft": {
+                    "type": "boolean"
+                  },
+                  "country": {
+                    "type": "string",
+                    "enum": [
+                      "gb",
+                      "us"
+                    ]
+                  },
+                  "content_type": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  },
+                  "reviewed_at": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "linked_product_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "related_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "video_link": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "video_poster": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "cover_image": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "country"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              },
               "reviewed_by": {
                 "type": "string",
                 "nullable": true
@@ -9233,6 +9324,10 @@
               "gb",
               "us"
             ]
+          },
+          "mapping_country_library_id": {
+            "type": "string",
+            "nullable": true
           },
           "reviewer_id": {
             "type": "string",
@@ -12849,6 +12944,152 @@
               "id",
               "slug",
               "name"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "mapping_country_library": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              },
+              "uuid": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "slug": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "slug",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "summary": {
+                "type": "string",
+                "nullable": true
+              },
+              "summary_content": {
+                "type": "string"
+              },
+              "content_type": {
+                "type": "string"
+              },
+              "cover_image": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_poster": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "video_link": {
+                "type": "string",
+                "nullable": true
+              },
+              "reviewer": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "photo": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "bio": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "display_order": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "linkedin_url": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "slug",
+                  "updated_at",
+                  "created_at"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "reviewed_at": {
+                "type": "string",
+                "nullable": true
+              },
+              "updated_at": {
+                "type": "string",
+                "nullable": true
+              },
+              "reading_time": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
+              }
+            },
+            "required": [
+              "uuid",
+              "slug",
+              "url",
+              "summary_content",
+              "content_type"
             ],
             "additionalProperties": false,
             "nullable": true
