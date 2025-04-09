@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.88.4"
+    "version": "2.88.5"
   },
   "servers": [
     {
@@ -8717,6 +8717,10 @@
                     "type": "string",
                     "nullable": true
                   },
+                  "next_review_at": {
+                    "type": "string",
+                    "nullable": true
+                  },
                   "linked_product_ids": {
                     "type": "array",
                     "items": {
@@ -8754,6 +8758,10 @@
                 "nullable": true
               },
               "reviewed_at": {
+                "type": "string",
+                "nullable": true
+              },
+              "next_review_at": {
                 "type": "string",
                 "nullable": true
               },
@@ -8918,6 +8926,10 @@
                       "type": "string"
                     },
                     "reviewed_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next_review_at": {
                       "type": "string",
                       "nullable": true
                     },
@@ -9500,6 +9512,10 @@
                       "type": "string"
                     },
                     "reviewed_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "next_review_at": {
                       "type": "string",
                       "nullable": true
                     },
@@ -12886,6 +12902,10 @@
             "type": "string",
             "nullable": true
           },
+          "next_review_at": {
+            "type": "string",
+            "nullable": true
+          },
           "summary": {
             "type": "string"
           },
@@ -13125,6 +13145,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "next_review_at": {
+                "type": "string",
+                "nullable": true
+              },
               "updated_at": {
                 "type": "string",
                 "nullable": true
@@ -13282,6 +13306,10 @@
               "nullable": true
             },
             "reviewed_at": {
+              "type": "string",
+              "nullable": true
+            },
+            "next_review_at": {
               "type": "string",
               "nullable": true
             },
