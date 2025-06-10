@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.90.0"
+    "version": "2.91.2"
   },
   "servers": [
     {
@@ -3000,7 +3000,8 @@
                 "country",
                 "draft",
                 "price",
-                "quantity"
+                "quantity",
+                "best_seller_rank"
               ],
               "default": "updated"
             },
@@ -3034,6 +3035,14 @@
           {
             "in": "query",
             "name": "is_popular",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "best_sellers",
             "schema": {
               "type": "boolean"
             },
@@ -3199,7 +3208,8 @@
                 "country",
                 "draft",
                 "price",
-                "quantity"
+                "quantity",
+                "best_seller_rank"
               ],
               "default": "updated"
             },
@@ -3233,6 +3243,14 @@
           {
             "in": "query",
             "name": "is_popular",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "best_sellers",
             "schema": {
               "type": "boolean"
             },
@@ -8859,6 +8877,11 @@
                     },
                     "updated_at": {
                       "type": "string"
+                    },
+                    "best_seller_rank": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -11086,6 +11109,11 @@
                     },
                     "updated_at": {
                       "type": "string"
+                    },
+                    "best_seller_rank": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -11165,6 +11193,11 @@
                   "additionalProperties": false
                 },
                 "default": []
+              },
+              "best_seller_rank": {
+                "type": "number",
+                "format": "float",
+                "nullable": true
               }
             },
             "required": [
@@ -11726,6 +11759,11 @@
                     },
                     "updated_at": {
                       "type": "string"
+                    },
+                    "best_seller_rank": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -13596,6 +13634,10 @@
                 "uuid": {
                   "type": "string",
                   "format": "uuid"
+                },
+                "is_best_seller": {
+                  "type": "boolean",
+                  "default": false
                 }
               },
               "required": [
@@ -13677,6 +13719,10 @@
               "additionalProperties": false
             },
             "default": []
+          },
+          "is_best_seller": {
+            "type": "boolean",
+            "default": false
           }
         },
         "required": [
@@ -13857,6 +13903,10 @@
                   "uuid": {
                     "type": "string",
                     "format": "uuid"
+                  },
+                  "is_best_seller": {
+                    "type": "boolean",
+                    "default": false
                   }
                 },
                 "required": [
@@ -13879,6 +13929,10 @@
             "stock_issue_message": {
               "type": "string",
               "nullable": true
+            },
+            "is_best_seller": {
+              "type": "boolean",
+              "default": false
             }
           },
           "required": [
@@ -14710,6 +14764,10 @@
                   "uuid": {
                     "type": "string",
                     "format": "uuid"
+                  },
+                  "is_best_seller": {
+                    "type": "boolean",
+                    "default": false
                   }
                 },
                 "required": [
@@ -14732,6 +14790,10 @@
             "stock_issue_message": {
               "type": "string",
               "nullable": true
+            },
+            "is_best_seller": {
+              "type": "boolean",
+              "default": false
             }
           },
           "required": [
