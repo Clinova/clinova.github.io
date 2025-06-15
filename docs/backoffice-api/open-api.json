@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.91.2"
+    "version": "2.92.0"
   },
   "servers": [
     {
@@ -11198,6 +11198,46 @@
                 "type": "number",
                 "format": "float",
                 "nullable": true
+              },
+              "similar_products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "draft": {
+                      "type": "boolean"
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "price_currency": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -11634,6 +11674,14 @@
                 "title"
               ],
               "additionalProperties": false
+            },
+            "default": []
+          },
+          "similar_product_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
             },
             "default": []
           }
