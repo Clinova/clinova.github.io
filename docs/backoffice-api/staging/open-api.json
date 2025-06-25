@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.95.1"
+    "version": "2.96.0"
   },
   "servers": [
     {
@@ -11238,6 +11238,29 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "faqs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "question": {
+                      "type": "string"
+                    },
+                    "answer": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "question"
+                  ],
+                  "additionalProperties": false
+                },
+                "default": []
               }
             },
             "required": [
@@ -11690,6 +11713,30 @@
             "items": {
               "type": "string",
               "format": "uuid"
+            },
+            "default": []
+          },
+          "faqs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "question": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "question"
+              ],
+              "additionalProperties": false
             },
             "default": []
           }
@@ -13779,6 +13826,30 @@
           "is_best_seller": {
             "type": "boolean",
             "default": false
+          },
+          "faqs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "question": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "question"
+              ],
+              "additionalProperties": false
+            },
+            "default": []
           }
         },
         "required": [
