@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.99.1"
+    "version": "2.100.0"
   },
   "servers": [
     {
@@ -9023,6 +9023,34 @@
               "cover_image": {
                 "type": "string",
                 "nullable": true
+              },
+              "stock_images": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "title"
+                  ],
+                  "additionalProperties": false
+                },
+                "default": []
               }
             },
             "required": [
@@ -9450,6 +9478,7 @@
                   "general_info",
                   "recommended_products",
                   "related_content",
+                  "stock_images",
                   "seo",
                   "equivalent_content",
                   "gb_equivalent_content",
@@ -9462,6 +9491,32 @@
               "section"
             ],
             "additionalProperties": false
+          },
+          "stock_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "url",
+                "title"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
@@ -13366,6 +13421,34 @@
             ],
             "additionalProperties": false,
             "nullable": true
+          },
+          "stock_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "url": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "url",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "default": []
           }
         },
         "required": [
