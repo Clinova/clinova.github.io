@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.100.0"
+    "version": "2.101.0"
   },
   "servers": [
     {
@@ -8910,6 +8910,10 @@
                       "type": "number",
                       "format": "float",
                       "nullable": true
+                    },
+                    "brand_name": {
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -11209,6 +11213,10 @@
                       "type": "number",
                       "format": "float",
                       "nullable": true
+                    },
+                    "brand_name": {
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -11358,6 +11366,10 @@
                 "default": []
               },
               "summary_without_faqs": {
+                "type": "string",
+                "nullable": true
+              },
+              "brand_name": {
                 "type": "string",
                 "nullable": true
               }
@@ -11838,6 +11850,10 @@
               "additionalProperties": false
             },
             "default": []
+          },
+          "brand_name": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -11965,6 +11981,10 @@
                     "best_seller_rank": {
                       "type": "number",
                       "format": "float",
+                      "nullable": true
+                    },
+                    "brand_name": {
+                      "type": "string",
                       "nullable": true
                     }
                   },
@@ -13888,6 +13908,10 @@
                 "is_best_seller": {
                   "type": "boolean",
                   "default": false
+                },
+                "brand_name": {
+                  "type": "string",
+                  "nullable": true
                 }
               },
               "required": [
@@ -13997,6 +14021,10 @@
               "additionalProperties": false
             },
             "default": []
+          },
+          "brand_name": {
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -14181,6 +14209,10 @@
                   "is_best_seller": {
                     "type": "boolean",
                     "default": false
+                  },
+                  "brand_name": {
+                    "type": "string",
+                    "nullable": true
                   }
                 },
                 "required": [
@@ -14207,6 +14239,10 @@
             "is_best_seller": {
               "type": "boolean",
               "default": false
+            },
+            "brand_name": {
+              "type": "string",
+              "nullable": true
             }
           },
           "required": [
@@ -15042,6 +15078,10 @@
                   "is_best_seller": {
                     "type": "boolean",
                     "default": false
+                  },
+                  "brand_name": {
+                    "type": "string",
+                    "nullable": true
                   }
                 },
                 "required": [
@@ -15068,6 +15108,10 @@
             "is_best_seller": {
               "type": "boolean",
               "default": false
+            },
+            "brand_name": {
+              "type": "string",
+              "nullable": true
             }
           },
           "required": [
