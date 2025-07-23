@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.101.0"
+    "version": "2.102.0"
   },
   "servers": [
     {
@@ -3042,6 +3042,14 @@
           },
           {
             "in": "query",
+            "name": "fulfilment_product_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "is_popular",
             "schema": {
               "type": "boolean"
@@ -3243,6 +3251,14 @@
           {
             "in": "query",
             "name": "search_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "fulfilment_product_id",
             "schema": {
               "type": "string"
             },
@@ -6140,6 +6156,7 @@
                 "customer_name",
                 "fulfilment_status",
                 "payment_status",
+                "order_status",
                 "country",
                 "price"
               ],
@@ -6372,6 +6389,7 @@
                 "customer_name",
                 "fulfilment_status",
                 "payment_status",
+                "order_status",
                 "country",
                 "price"
               ],
@@ -8881,6 +8899,24 @@
                       "type": "string",
                       "nullable": true
                     },
+                    "fulfilment_provider": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "daylewis",
+                            "theindependentpharmacy",
+                            "healthwarehouse",
+                            "healthwords"
+                          ],
+                          "x-required": true
+                        }
+                      ]
+                    },
                     "linked_libraries": {
                       "type": "array",
                       "items": {
@@ -10899,7 +10935,8 @@
                     "enum": [
                       "daylewis",
                       "theindependentpharmacy",
-                      "healthwarehouse"
+                      "healthwarehouse",
+                      "healthwords"
                     ],
                     "x-required": true
                   }
@@ -11183,6 +11220,24 @@
                     "fulfilment_product_id": {
                       "type": "string",
                       "nullable": true
+                    },
+                    "fulfilment_provider": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "daylewis",
+                            "theindependentpharmacy",
+                            "healthwarehouse",
+                            "healthwords"
+                          ],
+                          "x-required": true
+                        }
+                      ]
                     },
                     "linked_libraries": {
                       "type": "array",
@@ -11563,7 +11618,8 @@
                 "enum": [
                   "daylewis",
                   "theindependentpharmacy",
-                  "healthwarehouse"
+                  "healthwarehouse",
+                  "healthwords"
                 ],
                 "x-required": true
               }
@@ -11952,6 +12008,24 @@
                     "fulfilment_product_id": {
                       "type": "string",
                       "nullable": true
+                    },
+                    "fulfilment_provider": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "daylewis",
+                            "theindependentpharmacy",
+                            "healthwarehouse",
+                            "healthwords"
+                          ],
+                          "x-required": true
+                        }
+                      ]
                     },
                     "linked_libraries": {
                       "type": "array",
@@ -16172,6 +16246,10 @@
                       "type": "string",
                       "nullable": true
                     },
+                    "fulfilment_provider": {
+                      "type": "string",
+                      "nullable": true
+                    },
                     "product_id": {
                       "type": "string"
                     },
@@ -16240,6 +16318,9 @@
               },
               "updated_at": {
                 "type": "string"
+              },
+              "inhouse": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -16525,6 +16606,10 @@
                             "type": "string",
                             "nullable": true
                           },
+                          "fulfilment_provider": {
+                            "type": "string",
+                            "nullable": true
+                          },
                           "product_id": {
                             "type": "string"
                           },
@@ -16593,6 +16678,9 @@
                     },
                     "updated_at": {
                       "type": "string"
+                    },
+                    "inhouse": {
+                      "type": "boolean"
                     }
                   },
                   "required": [
