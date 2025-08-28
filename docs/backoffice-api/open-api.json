@@ -3,7 +3,7 @@
   "info": {
     "title": "API Backoffice Heathwords",
     "description": "API Backoffice Heathwords",
-    "version": "2.106.0"
+    "version": "2.107.0"
   },
   "servers": [
     {
@@ -13508,6 +13508,121 @@
                 "type": "number",
                 "format": "float",
                 "nullable": true
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "antihistamine_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "decongestant_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "fake_bundle": {
+                      "type": "boolean"
+                    },
+                    "general_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "gsl_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "id": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "in_stock": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "slug": {
+                      "type": "string"
+                    },
+                    "nsaid_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "opioid_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "paracetamol_units": {
+                      "type": "number",
+                      "format": "float",
+                      "nullable": true
+                    },
+                    "price_cents": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "price_currency": {
+                      "type": "string"
+                    },
+                    "product_type": {
+                      "type": "string"
+                    },
+                    "thumbnail": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "why_this_bundle": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "symptoms": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "thumbnail": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "uuid": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "uuid"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "symptoms": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "slug",
+                    "uuid"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -13709,6 +13824,121 @@
               "type": "number",
               "format": "float",
               "nullable": true
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "antihistamine_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "decongestant_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "fake_bundle": {
+                    "type": "boolean"
+                  },
+                  "general_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "gsl_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "in_stock": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "nsaid_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "opioid_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "paracetamol_units": {
+                    "type": "number",
+                    "format": "float",
+                    "nullable": true
+                  },
+                  "price_cents": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "price_currency": {
+                    "type": "string"
+                  },
+                  "product_type": {
+                    "type": "string"
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "uuid": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "why_this_bundle": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "symptoms": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "thumbnail": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "uuid": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "uuid"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "symptoms": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "slug",
+                  "uuid"
+                ],
+                "additionalProperties": false
+              }
             }
           },
           "required": [
